@@ -1,0 +1,1 @@
+/**/__twttr.receiveCount({"count":90,"url":"http:\/\/railscasts.com\/episodes\/238-mongoid\/"});

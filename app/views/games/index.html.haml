@@ -1,0 +1,26 @@
+.col-md-10.col-sm-10
+  %h2 Game Index
+.col-md-2.col-sm-2
+  =link_to "Create Game" new_game_path, class: "btn btn-sm btn-primary"
+.col-md-6.col-sm-6
+  %table.table
+    %thead
+      %tr
+        %th Name
+        %th Description
+        %th Action
+    %tbody
+      -@games.each do | game |
+        %tr
+          %td
+            =game.name
+          %td
+            =game.description
+          %td
+            =link_to "Edit", edit_game_path(game.id)
+          %td
+            =link_to "Show", game_path(game.id)
+          %td
+            =link_to "Delete", game_path(game.id), method: :delete
+          %td
+            =link_to "Show Matches", game_matches_path(game.id)

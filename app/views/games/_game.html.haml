@@ -1,0 +1,23 @@
+.col-md-4.col-sm-4.col-md-offset-4.col-sm-offset-4
+  %h2 Create Game
+  =nested_form_for @game, html: { role: "form" } do | form |
+    =form.label "Name"
+    =form.text_field :name, class: "form-control"
+    %br
+    =form.label "Description"
+    =form.text_field :description, class: "form-control"
+    %br
+    %h3 Matches
+    =form.fields_for :matches do | match_form |
+      =match_form.label "Name"
+      =match_form.text_field :name, class: "form-control"
+      %br
+      =match_form.label "venue"
+      =match_form.text_field :venue, class: "form-control"
+      %br
+      =match_form.label "Played on"
+      =match_form.text_field :played_on, class: "form-control"
+      %br
+    =form.link_to_add "Add Match", :matches, class: "btn btn-sm btn-primary"
+    %br
+    =form.submit 

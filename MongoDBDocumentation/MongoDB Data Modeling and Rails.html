@@ -1,0 +1,836 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><script src="MongoDB%20Data%20Modeling%20and%20Rails_files/async-ads.js" async=""></script>
+  <link href="MongoDB%20Data%20Modeling%20and%20Rails_files/css.css" rel="stylesheet" type="text/css">
+    <title>MongoDB Data Modeling and Rails</title><link rel="shortcut icon" href="https://media.mongodb.org/favicon.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="robots" content="index">
+  <meta name="release" content="2.6.0">
+  <meta name="version" content="2.6.0">
+  <meta name="DC.Source" content="https://github.com/mongodb/docs-ecosystem/blob/master/source/tutorial/model-data-for-ruby-on-rails.txt">
+  
+       <link rel="stylesheet" href="MongoDB%20Data%20Modeling%20and%20Rails_files/bootstrap-custom.css" type="text/css">
+       <link rel="stylesheet" href="MongoDB%20Data%20Modeling%20and%20Rails_files/icomoon.css" type="text/css">
+       <link rel="stylesheet" href="MongoDB%20Data%20Modeling%20and%20Rails_files/font-awesome.css" type="text/css">
+       <link rel="stylesheet" href="MongoDB%20Data%20Modeling%20and%20Rails_files/tipsy.css" type="text/css">
+   <link rel="stylesheet" href="MongoDB%20Data%20Modeling%20and%20Rails_files/mongodb-docs.css" type="text/css">
+   <link rel="stylesheet" href="MongoDB%20Data%20Modeling%20and%20Rails_files/pygments.css" type="text/css">
+    
+  <script src="MongoDB%20Data%20Modeling%20and%20Rails_files/insight.js" async="" type="text/javascript"></script><script src="MongoDB%20Data%20Modeling%20and%20Rails_files/elqCfg.js" async="" type="text/javascript"></script><script src="MongoDB%20Data%20Modeling%20and%20Rails_files/analytics.js" async="" type="text/javascript"></script><script src="MongoDB%20Data%20Modeling%20and%20Rails_files/conversion_async.js" async="" type="text/javascript"></script><script src="MongoDB%20Data%20Modeling%20and%20Rails_files/gtm.js" async=""></script><script src="MongoDB%20Data%20Modeling%20and%20Rails_files/cse.js" async="" type="text/javascript"></script><script type="text/javascript">
+    var DOCUMENTATION_OPTIONS = {
+     URL_ROOT:    '../../',
+     VERSION:     '2.6.0',
+     COLLAPSE_INDEX: false,
+     FILE_SUFFIX: '',
+     HAS_SOURCE:  false,
+    };
+  </script>
+    <script type="text/javascript" src="MongoDB%20Data%20Modeling%20and%20Rails_files/jquery.js"></script>
+    <script type="text/javascript" src="MongoDB%20Data%20Modeling%20and%20Rails_files/underscore.js"></script>
+    <script type="text/javascript" src="MongoDB%20Data%20Modeling%20and%20Rails_files/doctools.js"></script>
+    <script type="text/javascript" src="MongoDB%20Data%20Modeling%20and%20Rails_files/bootstrap.js"></script>
+    <script type="text/javascript" src="MongoDB%20Data%20Modeling%20and%20Rails_files/jquery_003.js"></script>
+    <script type="text/javascript" src="MongoDB%20Data%20Modeling%20and%20Rails_files/jquery_002.js"></script>
+    <script type="text/javascript" src="MongoDB%20Data%20Modeling%20and%20Rails_files/navbar.js"></script>
+      <link rel="search" type="application/opensearchdescription+xml" href="https://docs.mongodb.org/osd.xml" title="MongoDB Help">
+<link rel="top" title="MongoDB Ecosystem" href="http://docs.mongodb.org/ecosystem/">
+      <script type="text/javascript">
+        (function() {
+           var cx = '017213726194841070573:WMX6838984';
+           var gcse = document.createElement('script'); gcse.type = 'text/javascript'; gcse.async = true;
+           gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//www.google.com/cse/cse.js?cx=' + cx;
+           gcse.onload = gcse.onreadystatechange = function() {
+            $(function() {
+              // hack to set a placeholder in google's custom search input
+              var pollInput = window.setInterval(function() {
+                var $input = $('.gsc-input input.gsc-input'),
+                    $div = $('.search-db');
+
+                if ($input.length) {
+                  $input.on('focus', function(e) { $div.addClass('wide').removeClass('narrow'); });
+                  $input.on('blur', function(e) {
+                    if (!$input.val().length) { $div.addClass('narrow').removeClass('wide'); }
+                  });
+                  $input.attr('placeholder', "Search mongodb.org");
+                  window.clearInterval(pollInput);
+                }
+              }, 10);
+            });
+           };
+           var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gcse, s);
+           })();
+      </script><script type="text/javascript" src="MongoDB%20Data%20Modeling%20and%20Rails_files/jsapi"></script><link rel="stylesheet" href="MongoDB%20Data%20Modeling%20and%20Rails_files/defaulten.css" type="text/css"><link rel="stylesheet" href="MongoDB%20Data%20Modeling%20and%20Rails_files/default.css" type="text/css"><script src="MongoDB%20Data%20Modeling%20and%20Rails_files/defaulten.js" type="text/javascript"></script><style type="text/css">
+.gsc-control-cse {
+font-family: Arial, sans-serif;
+border-color: #FFFFFF;
+background-color: #FFFFFF;
+}
+.gsc-control-cse .gsc-table-result {
+font-family: Arial, sans-serif;
+}
+input.gsc-input, .gsc-input-box, .gsc-input-box-hover, .gsc-input-box-focus {
+border-color: #D9D9D9;
+}
+input.gsc-search-button, input.gsc-search-button:hover, input.gsc-search-button:focus {
+border-color: #5AAC41;
+background-color: #5AAC41;
+background-image: none;
+filter: none;
+}
+.gsc-tabHeader.gsc-tabhInactive {
+border-color: #CCCCCC;
+background-color: #FFFFFF;
+}
+.gsc-tabHeader.gsc-tabhActive {
+border-color: #CCCCCC;
+border-bottom-color: #FFFFFF;
+background-color: #FFFFFF;
+}
+.gsc-tabsArea {
+border-color: #CCCCCC;
+}
+.gsc-webResult.gsc-result,
+.gsc-results .gsc-imageResult {
+border-color: #FFFFFF;
+background-color: #FFFFFF;
+}
+.gsc-webResult.gsc-result:hover,
+.gsc-imageResult:hover {
+border-color: #FFFFFF;
+background-color: #FFFFFF;
+}
+.gs-webResult.gs-result a.gs-title:link,
+.gs-webResult.gs-result a.gs-title:link b,
+.gs-imageResult a.gs-title:link,
+.gs-imageResult a.gs-title:link b {
+color: #1155CC;
+}
+.gs-webResult.gs-result a.gs-title:visited,
+.gs-webResult.gs-result a.gs-title:visited b,
+.gs-imageResult a.gs-title:visited,
+.gs-imageResult a.gs-title:visited b {
+color: #1155CC;
+}
+.gs-webResult.gs-result a.gs-title:hover,
+.gs-webResult.gs-result a.gs-title:hover b,
+.gs-imageResult a.gs-title:hover,
+.gs-imageResult a.gs-title:hover b {
+color: #1155CC;
+}
+.gs-webResult.gs-result a.gs-title:active,
+.gs-webResult.gs-result a.gs-title:active b,
+.gs-imageResult a.gs-title:active,
+.gs-imageResult a.gs-title:active b {
+color: #1155CC;
+}
+.gsc-cursor-page {
+color: #1155CC;
+}
+a.gsc-trailing-more-results:link {
+color: #1155CC;
+}
+.gs-webResult .gs-snippet,
+.gs-imageResult .gs-snippet,
+.gs-fileFormatType {
+color: #333333;
+}
+.gs-webResult div.gs-visibleUrl,
+.gs-imageResult div.gs-visibleUrl {
+color: #009933;
+}
+.gs-webResult div.gs-visibleUrl-short {
+color: #009933;
+}
+.gs-webResult div.gs-visibleUrl-short {
+display: none;
+}
+.gs-webResult div.gs-visibleUrl-long {
+display: block;
+}
+.gs-promotion div.gs-visibleUrl-short {
+display: none;
+}
+.gs-promotion div.gs-visibleUrl-long {
+display: block;
+}
+.gsc-cursor-box {
+border-color: #FFFFFF;
+}
+.gsc-results .gsc-cursor-box .gsc-cursor-page {
+border-color: #CCCCCC;
+background-color: #FFFFFF;
+color: #1155CC;
+}
+.gsc-results .gsc-cursor-box .gsc-cursor-current-page {
+border-color: #CCCCCC;
+background-color: #FFFFFF;
+color: #1155CC;
+}
+.gsc-webResult.gsc-result.gsc-promotion {
+border-color: #F6F6F6;
+background-color: #F6F6F6;
+}
+.gsc-completion-title {
+color: #1155CC;
+}
+.gsc-completion-snippet {
+color: #333333;
+}
+.gs-promotion a.gs-title:link,
+.gs-promotion a.gs-title:link *,
+.gs-promotion .gs-snippet a:link {
+color: #1155CC;
+}
+.gs-promotion a.gs-title:visited,
+.gs-promotion a.gs-title:visited *,
+.gs-promotion .gs-snippet a:visited {
+color: #1155CC;
+}
+.gs-promotion a.gs-title:hover,
+.gs-promotion a.gs-title:hover *,
+.gs-promotion .gs-snippet a:hover {
+color: #1155CC;
+}
+.gs-promotion a.gs-title:active,
+.gs-promotion a.gs-title:active *,
+.gs-promotion .gs-snippet a:active {
+color: #1155CC;
+}
+.gs-promotion .gs-snippet,
+.gs-promotion .gs-title .gs-promotion-title-right,
+.gs-promotion .gs-title .gs-promotion-title-right * {
+color: #333333;
+}
+.gs-promotion .gs-visibleUrl,
+.gs-promotion .gs-visibleUrl-short {
+color: #009933;
+}
+.gsc-input input.gsc-input {
+background: none repeat scroll 0% 0% white !important;
+}</style><style type="text/css">.gscb_a{display:inline-block;font:27px/13px arial,sans-serif}.gsst_a .gscb_a{color:#a1b9ed;cursor:pointer}.gsst_a:hover .gscb_a,.gsst_a:focus .gscb_a{color:#36c}.gsst_a{display:inline-block}.gsst_a{cursor:pointer;padding:0 4px}.gsst_a:hover{text-decoration:none!important}.gsst_b{font-size:16px;padding:0 2px;position:relative;user-select:none;-moz-user-select:none;white-space:nowrap}.gsst_e{opacity:0.55;}.gsst_a:hover .gsst_e,.gsst_a:focus .gsst_e{opacity:0.72;}.gsst_a:active .gsst_e{opacity:1;}.gsst_f{background:white;text-align:left}.gsst_g{background-color:white;border:1px solid #ccc;border-top-color:#d9d9d9;box-shadow:0 2px 4px rgba(0,0,0,0.2);-moz-box-shadow:0 2px 4px rgba(0,0,0,0.2);margin:-1px -3px;padding:0 6px}.gsst_h{background-color:white;height:1px;margin-bottom:-1px;position:relative;top:-1px}.gsib_a{width:100%;padding:4px 6px 0}.gsib_a,.gsib_b{vertical-align:top}.gssb_c{border:0;position:absolute;z-index:989}.gssb_e{border:1px solid #ccc;border-top-color:#d9d9d9;box-shadow:0 2px 4px rgba(0,0,0,0.2);-moz-box-shadow:0 2px 4px rgba(0,0,0,0.2);cursor:default}.gssb_f{visibility:hidden;white-space:nowrap}.gssb_k{border:0;display:block;position:absolute;top:0;z-index:988}.gsdd_a{border:none!important}.gscsep_a{display:none}.gsq_a{padding:0}.gssb_a{padding:0 7px}.gssb_a,.gssb_a td{white-space:nowrap;overflow:hidden;line-height:22px}#gssb_b{font-size:11px;color:#36c;text-decoration:none}#gssb_b:hover{font-size:11px;color:#36c;text-decoration:underline}.gssb_g{text-align:center;padding:8px 0 7px;position:relative}.gssb_h{font-size:15px;height:28px;margin:0.2em}.gssb_i{background:#eee}.gss_ifl{visibility:hidden;padding-left:5px}.gssb_i .gss_ifl{visibility:visible}a.gssb_j{font-size:13px;color:#36c;text-decoration:none;line-height:100%}a.gssb_j:hover{text-decoration:underline}.gssb_l{height:1px;background-color:#e5e5e5}.gssb_m{color:#000;background:#fff}.gsfe_a{border:1px solid #b9b9b9;border-top-color:#a0a0a0;box-shadow:inset 0px 1px 2px rgba(0,0,0,0.1);-moz-box-shadow:inset 0px 1px 2px rgba(0,0,0,0.1);-webkit-box-shadow:inset 0px 1px 2px rgba(0,0,0,0.1);}.gsfe_b{border:1px solid #4d90fe;outline:none;box-shadow:inset 0px 1px 2px rgba(0,0,0,0.3);-moz-box-shadow:inset 0px 1px 2px rgba(0,0,0,0.3);-webkit-box-shadow:inset 0px 1px 2px rgba(0,0,0,0.3);}.gssb_a{padding:0 9px}.gsib_a{padding-right:8px;padding-left:8px}.gsst_a{padding-top:3px}.gssb_e{border:0}.gssb_l{margin:5px 0}.gssb_c .gsc-completion-container{position:static}.gssb_c{z-index:5000}.gsc-completion-container table{background:transparent;font-size:inherit;font-family:inherit}.gssb_c > tbody > tr,.gssb_c > tbody > tr > td,.gssb_d,.gssb_d > tbody > tr,.gssb_d > tbody > tr > td,.gssb_e,.gssb_e > tbody > tr,.gssb_e > tbody > tr > td{padding:0;margin:0;border:0}.gssb_a table,.gssb_a table tr,.gssb_a table tr td{padding:0;margin:0;border:0}</style><style type="text/css">.atlwdg-blanket {background: black;height: 100%;left: 0;opacity: .5;position: fixed;top: 0;width: 100%;z-index: 1000000;}.atlwdg-popup {background: white;border: 1px solid #666;position: fixed;top: 50%;left: 50%;z-index: 10000011;}.atlwdg-popup.atlwdg-box-shadow {-moz-box-shadow: 10px 10px 20px rgba(0,0,0,0.5);-webkit-box-shadow: 10px 10px 20px rgba(0,0,0,0.5);box-shadow: 10px 10px 20px rgba(0,0,0,0.5);background-color: white;}.atlwdg-hidden {display: none;}.atlwdg-trigger {position: fixed;background: #013466;padding: 5px;border: 2px solid white;border-top: none;font-weight: bold;color: white !important;display: block;white-space: nowrap;text-decoration: none !important;font-family: arial, FreeSans, Helvetica, sans-serif;font-size: 12px;box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);-webkit-box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);-moz-box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);border-radius: 0 0 5px 5px;-moz-border-radius: 0 0 5px 5px;}.atlwdg-trigger.atlwdg-TOP {left: 45%;top: 0;}.atlwdg-trigger.atlwdg-RIGHT {left: 100%;top: 40%;-webkit-transform-origin: top left;-webkit-transform: rotate(90deg);-moz-transform: rotate(90deg);-moz-transform-origin: top left;-ms-transform: rotate(90deg);-ms-transform-origin: top left;}.atlwdg-trigger.atlwdg-SUBTLE {right: 0;bottom: 0;border: 1px solid #ccc;border-bottom: none;border-right: none;background-color: #f5f5f5;color: #444 !important;font-size: 11px;padding: 6px;box-shadow: -1px -1px 2px rgba(0, 0, 0, 0.5);border-radius: 2px 0 0 0;}.atlwdg-loading {position: absolute;top: 220px;left: 295px;}@media print {.atlwdg-trigger { display: none; }}</style><script src="MongoDB%20Data%20Modeling%20and%20Rails_files/roundtrip.js" type="text/javascript" async="true"></script><script src="MongoDB%20Data%20Modeling%20and%20Rails_files/3L5E5MU7GBC3NMYB75WIRR" type="text/javascript" async="true"></script><div style="width: 1px; height: 1px; display: inline; position: absolute;"><img style="border-style:none;" alt="" src="MongoDB%20Data%20Modeling%20and%20Rails_files/out_006.gif" height="1" width="1">
+<img style="border-style:none;" alt="" src="MongoDB%20Data%20Modeling%20and%20Rails_files/out_002.gif" height="1" width="1">
+<img style="border-style:none;" alt="" src="MongoDB%20Data%20Modeling%20and%20Rails_files/out_007.gif" height="1" width="1">
+<img style="border-style:none;" alt="" src="MongoDB%20Data%20Modeling%20and%20Rails_files/out_008.gif" height="1" width="1">
+<img style="border-style:none;" alt="" src="MongoDB%20Data%20Modeling%20and%20Rails_files/out_003.gif" height="1" width="1">
+<img style="border-style:none;" alt="" src="MongoDB%20Data%20Modeling%20and%20Rails_files/out_005.gif" height="1" width="1">
+<img style="border-style:none;" alt="" src="MongoDB%20Data%20Modeling%20and%20Rails_files/out_004.gif" height="1" width="1">
+<img style="border-style:none;" alt="" src="MongoDB%20Data%20Modeling%20and%20Rails_files/out.gif" height="1" width="1">
+<img alt="" style="display:none" src="MongoDB%20Data%20Modeling%20and%20Rails_files/tr.gif" height="1" width="1"><img style="border-style:none;" alt="" src="MongoDB%20Data%20Modeling%20and%20Rails_files/a.gif" height="1" width="1">
+<img src="MongoDB%20Data%20Modeling%20and%20Rails_files/seg.gif" height="1" width="1">
+</div></head>
+<body>
+  <!-- Google Tag Manager -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-JQHP"
+                    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push(
+     {'gtm.start': new Date().getTime(),event:'gtm.js'}
+   );var f=d.getElementsByTagName(s)[0],
+   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+   '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+   })(window,document,'script','dataLayer','GTM-JQHP');</script>
+  <!-- End Google Tag Manager -->
+    <header id="header-db" class="row" role="navigation">
+      <div class="header-content">
+        <a class="fa fa-bars expand-toc-icon pull-left" href="#"></a>
+           <div class="logo pull-left">
+             <a href="https://www.mongodb.org/">
+               <img src="MongoDB%20Data%20Modeling%20and%20Rails_files/logo-mongodb-header.png" ,="" alt="MongoDB.org">
+             </a>
+           </div>
+        
+        <div>
+          <div class="search-db narrow pull-right"><div id="___gcse_0"><div dir="ltr" class="gsc-control-searchbox-only gsc-control-searchbox-only-en"><form accept-charset="utf-8" class="gsc-search-box gsc-search-box-tools"><table class="gsc-search-box" cellpadding="0" cellspacing="0"><tbody><tr><td class="gsc-input"><div id="gsc-iw-id1" class="gsc-input-box "><table class="gstl_50 " id="gs_id50" style="width: 100%; padding: 0px;" cellpadding="0" cellspacing="0"><tbody><tr><td class="gsib_a" id="gs_tti50"><input placeholder="Search mongodb.org" spellcheck="false" dir="ltr" id="gsc-i-id1" style="width: 100%; padding: 0px; border: medium none; margin: 0px; height: auto; outline: medium none;" title="search" name="search" class="gsc-input" size="10" autocomplete="off" type="text"></td><td class="gsib_b"><div dir="ltr" id="gs_st50" class="gsst_b"><a style="display: none;" href="javascript:void(0)" class="gsst_a"><span id="gs_cb50" class="gscb_a">×</span></a></div></td></tr></tbody></table></div><input id="bgresponse" name="bgresponse" type="hidden"></td><td class="gsc-search-button"><input title="search" class="gsc-search-button gsc-search-button-v2" src="MongoDB%20Data%20Modeling%20and%20Rails_files/search_box_icon.png" type="image"></td><td class="gsc-clear-button"><div title="clear results" class="gsc-clear-button">&nbsp;</div></td></tr></tbody></table><table class="gsc-branding" cellpadding="0" cellspacing="0"><tbody><tr style="display: none;"><td class="gsc-branding-user-defined"></td><td class="gsc-branding-text"><div class="gsc-branding-text">powered by</div></td><td class="gsc-branding-img"><img class="gsc-branding-img" src="MongoDB%20Data%20Modeling%20and%20Rails_files/small-logo.png"></td></tr></tbody></table></form></div></div></div>
+          
+          <div class="nav-items pull-right">
+   <a href="https://docs.mongodb.org/manual/">Manual</a>
+   <a href="https://university.mongodb.com/">Learn</a>
+   <a href="http://www.mongodb.org/downloads">Downloads</a>
+   <a href="http://www.mongodb.org/get-involved">Community</a>
+   <a href="http://blog.mongodb.org/">Blog</a>
+
+          </div>
+        </div>
+      </div>
+    </header>
+
+  <aside class="sidebar">
+       
+  <div class="sphinxsidebar">
+    <div class="sphinxsidebarwrapper" style=""><h3>
+  <a href="http://docs.mongodb.org/ecosystem/">MongoDB Ecosystem</a>
+</h3>
+
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="http://docs.mongodb.org/ecosystem/drivers/">MongoDB Drivers</a><ul style="display: none;">
+<li class="toctree-l2"><a class="reference internal" href="http://docs.mongodb.org/ecosystem/drivers/c/"><span class="expand-icon"></span>C Driver</a><ul style="display: none;" class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="http://docs.mongodb.org/ecosystem/drivers/cpp/"><span class="expand-icon"></span>C++ Driver</a><ul style="display: none;" class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="http://docs.mongodb.org/ecosystem/drivers/csharp/"><span class="expand-icon"></span>C# and .NET Driver</a><ul style="display: none;" class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="http://docs.mongodb.org/ecosystem/drivers/java/"><span class="expand-icon"></span>Java Driver</a><ul style="display: none;" class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="http://docs.mongodb.org/ecosystem/drivers/node-js/"><span class="expand-icon"></span>Node.js Driver</a><ul style="display: none;" class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="http://docs.mongodb.org/ecosystem/drivers/perl/"><span class="expand-icon"></span>Perl Driver</a><ul style="display: none;">
+<li class="toctree-l3"><a class="reference internal" href="http://docs.mongodb.org/ecosystem/drivers/perl-internals/"><span class="expand-icon"></span>Contribute to the Perl Driver</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="http://docs.mongodb.org/ecosystem/drivers/php/"><span class="expand-icon"></span>PHP Driver</a><ul style="display: none;">
+<li class="toctree-l3"><a class="reference internal" href="http://docs.mongodb.org/ecosystem/drivers/php-libraries/"><span class="expand-icon"></span>PHP Libraries, Frameworks and Tools</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="http://docs.mongodb.org/ecosystem/drivers/python/"><span class="expand-icon"></span>Python Driver</a><ul style="display: none;">
+<li class="toctree-l3"><a class="reference internal" href="http://docs.mongodb.org/ecosystem/tutorial/write-a-tumblelog-application-with-flask-mongoengine/"><span class="expand-icon"></span>Write a Tumblelog Application with Flask and MongoEngine</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="http://docs.mongodb.org/ecosystem/drivers/ruby/"><span class="expand-icon"></span>Ruby Driver</a><ul style="display: none;">
+<li class="toctree-l3"><a class="reference internal" href="http://docs.mongodb.org/ecosystem/drivers/ruby-resources/"><span class="expand-icon"></span>Ruby External Resources</a></li>
+<li class="toctree-l3"><a class="reference internal" href="http://docs.mongodb.org/ecosystem/tutorial/ruby-driver-tutorial/"><span class="expand-icon"></span>Ruby Driver Tutorial (2.0.0)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="http://docs.mongodb.org/ecosystem/tutorial/ruby-bson-tutorial/"><span class="expand-icon"></span>Ruby BSON Tutorial (3.0.0)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="http://docs.mongodb.org/ecosystem/tutorial/ruby-mongoid-tutorial/"><span class="expand-icon"></span>Mongoid Tutorial (5.0.0)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="http://docs.mongodb.org/ecosystem/drivers/scala/"><span class="expand-icon"></span>Scala Driver</a><ul style="display: none;" class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="http://docs.mongodb.org/ecosystem/drivers/community-supported-drivers-toc/"><span class="expand-icon"></span>Community Supported Drivers</a><ul style="display: none;">
+<li class="toctree-l3"><a class="reference internal" href="http://docs.mongodb.org/ecosystem/drivers/go/"><span class="expand-icon"></span>Go Driver</a></li>
+<li class="toctree-l3"><a class="reference internal" href="http://docs.mongodb.org/ecosystem/drivers/erlang/"><span class="expand-icon"></span>Erlang Driver</a></li>
+<li class="toctree-l3"><a class="reference internal" href="http://docs.mongodb.org/ecosystem/drivers/community-supported-drivers/"><span class="expand-icon"></span>Community Supported Drivers Reference</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="http://docs.mongodb.org/ecosystem/drivers/syntax-table/"><span class="expand-icon"></span>Driver Syntax Table</a></li>
+<li class="toctree-l2"><a class="reference internal" href="http://docs.mongodb.org/ecosystem/drivers/driver-compatibility-reference/"><span class="expand-icon"></span>Driver Compatibility</a><ul style="display: none;" class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="http://docs.mongodb.org/ecosystem/tools/">MongoDB Integration and Tools</a><ul style="display: none;">
+<li class="toctree-l2"><a class="reference internal" href="http://docs.mongodb.org/ecosystem/tools/hadoop/"><span class="expand-icon"></span>MongoDB Connector for Hadoop</a><ul style="display: none;" class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="http://docs.mongodb.org/ecosystem/tutorial/getting-started-with-hadoop/"><span class="expand-icon"></span>Getting Started with Hadoop</a><ul style="display: none;" class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="http://docs.mongodb.org/ecosystem/use-cases/hadoop/"><span class="expand-icon"></span>Hadoop and MongoDB Use Cases</a><ul style="display: none;" class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="http://docs.mongodb.org/ecosystem/tutorial/configure-red-hat-enterprise-linux-identity-management/"><span class="expand-icon"></span>Configure Red Hat Enterprise Linux Identity Management with MongoDB</a><ul style="display: none;" class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="http://docs.mongodb.org/ecosystem/tutorial/manage-red-hat-enterprise-linux-identity-management/"><span class="expand-icon"></span>Operational Procedures using Red Hat Enterprise Linux Identity Management</a><ul style="display: none;" class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="http://docs.mongodb.org/ecosystem/tools/applications/"><span class="expand-icon"></span>MongoDB-Based Applications</a><ul style="display: none;" class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="http://docs.mongodb.org/ecosystem/tools/administration-interfaces/"><span class="expand-icon"></span>Admin UIs</a><ul style="display: none;" class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="http://docs.mongodb.org/ecosystem/tools/http-interfaces/"><span class="expand-icon"></span>HTTP Interface</a><ul style="display: none;" class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="http://docs.mongodb.org/ecosystem/tools/munin/"><span class="expand-icon"></span>Munin Configuration Examples</a><ul style="display: none;" class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="http://docs.mongodb.org/ecosystem/tools/wireshark/"><span class="expand-icon"></span>Wireshark Support for MongoDB Protocol</a><ul style="display: none;" class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="http://docs.mongodb.org/ecosystem/platforms/">Platforms</a><ul style="display: none;">
+<li class="toctree-l2"><a class="reference internal" href="http://docs.mongodb.org/ecosystem/platforms/amazon-ec2/"><span class="expand-icon"></span>Amazon EC2</a><ul style="display: none;" class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="http://docs.mongodb.org/ecosystem/tutorial/backup-and-restore-mongodb-on-amazon-ec2/"><span class="expand-icon"></span>EC2 Backup and Restore</a><ul style="display: none;" class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="http://docs.mongodb.org/ecosystem/platforms/digitalocean/"><span class="expand-icon"></span>DigitalOcean</a><ul style="display: none;" class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="http://docs.mongodb.org/ecosystem/platforms/dotcloud/"><span class="expand-icon"></span>dotCloud</a><ul style="display: none;" class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="http://docs.mongodb.org/ecosystem/tutorial/joyent-cloud/"><span class="expand-icon"></span>Joyent Cloud</a></li>
+<li class="toctree-l2"><a class="reference internal" href="http://docs.mongodb.org/ecosystem/platforms/modulus/"><span class="expand-icon"></span>Modulus</a><ul style="display: none;" class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="http://docs.mongodb.org/ecosystem/platforms/rackspace-cloud/"><span class="expand-icon"></span>Rackspace Cloud</a><ul style="display: none;" class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="http://docs.mongodb.org/ecosystem/platforms/red-hat-openshift/"><span class="expand-icon"></span>Red Hat OpenShift</a><ul style="display: none;" class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="http://docs.mongodb.org/ecosystem/platforms/vmware-cloud-foundry/"><span class="expand-icon"></span>VMware Cloud Foundry</a><ul style="display: none;" class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="http://docs.mongodb.org/ecosystem/platforms/windows-azure/"><span class="expand-icon"></span>Microsoft Azure</a><ul style="display: none;" class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="http://docs.mongodb.org/ecosystem/platforms/windows/"><span class="expand-icon"></span>Windows Quick Links and Reference Center</a><ul style="display: none;" class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="http://docs.mongodb.org/ecosystem/use-cases/">Use Cases</a><ul style="display: none;">
+<li class="toctree-l2"><a class="reference internal" href="http://docs.mongodb.org/ecosystem/use-cases/storing-log-data/"><span class="expand-icon"></span>Storing Log Data</a><ul style="display: none;" class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="http://docs.mongodb.org/ecosystem/use-cases/pre-aggregated-reports/"><span class="expand-icon"></span>Pre-Aggregated Reports</a><ul style="display: none;" class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="http://docs.mongodb.org/ecosystem/use-cases/hierarchical-aggregation/"><span class="expand-icon"></span>Hierarchical Aggregation</a><ul style="display: none;" class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="http://docs.mongodb.org/ecosystem/use-cases/product-catalog/"><span class="expand-icon"></span>Product Catalog</a><ul style="display: none;" class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="http://docs.mongodb.org/ecosystem/use-cases/inventory-management/"><span class="expand-icon"></span>Inventory Management</a><ul style="display: none;" class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="http://docs.mongodb.org/ecosystem/use-cases/category-hierarchy/"><span class="expand-icon"></span>Category Hierarchy</a><ul style="display: none;" class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="http://docs.mongodb.org/ecosystem/use-cases/metadata-and-asset-management/"><span class="expand-icon"></span>Metadata and Asset Management</a><ul style="display: none;" class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="http://docs.mongodb.org/ecosystem/use-cases/storing-comments/"><span class="expand-icon"></span>Storing Comments</a><ul style="display: none;" class="simple">
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+
+<div class="nav-footer">
+  <a href="http://docs.mongodb.org/ecosystem/contents/">Contents</a>
+</div>
+
+    </div>
+  </div>
+    
+  </aside>
+  <div class="option-popup closed">
+    <div class="option-header">
+      <i class="fa fa-gear"></i>
+      <span>OPTIONS</span>
+      <i class="fa fa-angle-up pull-right"></i>
+    </div>
+    <div class="option-body">
+      <ul>
+         
+           
+        
+           <!-- format selector -->
+           <li>
+             <label>Formats</label>
+             <ul class="formats-list">
+                   <li><a href="http://docs.mongodb.org/ecosystem/single" target="_blank">HTML</a></li><li><a href="http://docs.mongodb.org/ecosystem/MongoDB-Ecosystem-guide.pdf" target="_blank" rel="nofollow">PDF</a></li><li><a href="http://docs.mongodb.org/ecosystem/mongodb-ecosystem.epub" target="_blank" rel="nofollow">EPUB</a></li>
+             </ul>
+           </li>
+        
+        <!-- contribute -->
+        <li>
+          <label>Contribute</label>
+          <ul class="contribute-list">
+            <li><a class="jira-link jirafeedback" href="https://jira.mongodb.org/secure/CreateIssueDetails%21init.jspa?pid=10380&amp;issuetype=4&amp;priority=4&amp;summary=Comment+on%3a+%22tutorial/model-data-for-ruby-on-rails%2Etxt%22" target="_blank" title="Report a problem with tutorial/model-data-for-ruby-on-rails.txt on Jira">Report a Problem</a></li>
+               <li><a class="edit-link" href="https://github.com/mongodb/docs-ecosystem/blob/master/source/tutorial/model-data-for-ruby-on-rails.txt" target="_blank" title="Edit tutorial/model-data-for-ruby-on-rails.txt on GitHub">
+    
+      <span>Edit on Github</span>
+    
+  </a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="content">
+    <div class="main-column pull-left">
+
+      
+        <div class="document">
+            <div class="documentwrapper"><div class="bodywrapper">
+              <div class="body">
+                   <a class="edit-link" href="https://github.com/mongodb/docs-ecosystem/blob/master/source/tutorial/model-data-for-ruby-on-rails.txt" target="_blank" title="Edit tutorial/model-data-for-ruby-on-rails.txt on GitHub">
+    
+      <span class="icon-edit"></span>
+    
+  </a>
+                
+                
+   <div class="bc">
+     
+      
+    
+  </div>
+                
+                  <div class="section" id="mongodb-data-modeling-and-rails">
+<span id="id1"></span><h1>MongoDB Data Modeling and Rails<a class="headerlink" href="#mongodb-data-modeling-and-rails" title="Permalink to this headline">¶</a></h1>
+<p>This tutorial discusses the development of a web application on Rails
+and MongoDB. MongoMapper will serve as our object mapper. The goal is
+to provide some insight into the design choices required for building
+on MongoDB. To that end, we’ll be constructing a simple but non-trivial
+social news application. The <a class="reference external" href="http://github.com/banker/newsmonger">source code for newsmonger</a> is available on github for
+those wishing to dive right in.</p>
+<p>Assuming you’ve configured your application to work with MongoMapper,
+let’s start thinking about the data model.</p>
+<div class="section" id="modeling-stories">
+<h2>Modeling Stories<a class="headerlink" href="#modeling-stories" title="Permalink to this headline">¶</a></h2>
+<p>A news application relies on stories at its core, so we’ll start with a
+Story model:</p>
+<div class="highlight-ruby"><div class="highlight"><pre><span class="k">class</span> <span class="nc">Story</span>
+ <span class="kp">include</span> <span class="ss">MongoMapper</span><span class="p">:</span><span class="ss">:Document</span>
+
+ <span class="n">key</span> <span class="ss">:title</span><span class="p">,</span>     <span class="nb">String</span>
+ <span class="n">key</span> <span class="ss">:url</span><span class="p">,</span>       <span class="nb">String</span>
+ <span class="n">key</span> <span class="ss">:slug</span><span class="p">,</span>      <span class="nb">String</span>
+ <span class="n">key</span> <span class="ss">:voters</span><span class="p">,</span>    <span class="nb">Array</span>
+ <span class="n">key</span> <span class="ss">:votes</span><span class="p">,</span>     <span class="nb">Integer</span><span class="p">,</span> <span class="ss">:default</span> <span class="o">=&gt;</span> <span class="mi">0</span>
+ <span class="n">key</span> <span class="ss">:relevance</span><span class="p">,</span> <span class="nb">Integer</span><span class="p">,</span> <span class="ss">:default</span> <span class="o">=&gt;</span> <span class="mi">0</span>
+
+ <span class="c1"># Cached values.</span>
+ <span class="n">key</span> <span class="ss">:comment_count</span><span class="p">,</span> <span class="nb">Integer</span><span class="p">,</span> <span class="ss">:default</span> <span class="o">=&gt;</span> <span class="mi">0</span>
+ <span class="n">key</span> <span class="ss">:username</span><span class="p">,</span>      <span class="nb">String</span>
+
+ <span class="c1"># Note this: ids are of class ObjectId.</span>
+ <span class="n">key</span> <span class="ss">:user_id</span><span class="p">,</span>   <span class="no">ObjectId</span>
+ <span class="n">timestamps!</span>
+
+ <span class="c1"># Relationships.</span>
+ <span class="n">belongs_to</span> <span class="ss">:user</span>
+
+ <span class="c1"># Validations.</span>
+ <span class="n">validates_presence_of</span> <span class="ss">:title</span><span class="p">,</span> <span class="ss">:url</span><span class="p">,</span> <span class="ss">:user_id</span>
+<span class="k">end</span>
+</pre></div>
+</div>
+<p>Obviously, a story needs a <tt class="docutils literal"><span class="pre">title</span></tt>, <tt class="docutils literal"><span class="pre">url</span></tt>, and <tt class="docutils literal"><span class="pre">user_id</span></tt>, and should belong
+to a user. These are self-explanatory.</p>
+</div>
+<div class="section" id="caching-to-avoid-n-1">
+<h2>Caching to Avoid N+1<a class="headerlink" href="#caching-to-avoid-n-1" title="Permalink to this headline">¶</a></h2>
+<p>When we display our list of stories, we’ll need to show the name of the
+user who posted the story. If we were using a relational database, we
+could perform a join on users and stores, and get all our objects in a
+single query. But MongoDB does not support joins and so, at times,
+requires bit of denormalization. Here, this means caching the
+<tt class="docutils literal"><span class="pre">username</span></tt> attribute.</p>
+</div>
+<div class="section" id="a-note-on-denormalization">
+<h2>A Note on Denormalization<a class="headerlink" href="#a-note-on-denormalization" title="Permalink to this headline">¶</a></h2>
+<p>Relational purists may be feeling uneasy already, as if we were
+violating some universal law. But let’s bear in mind that MongoDB
+collections are not equivalent to relational tables; each serves a
+unique design objective. A normalized table provides an atomic,
+isolated chunk of data. A document, however, more closely represents an
+object as a whole. In the case of a social news site, it can be argued
+that a username is intrinsic to the story being posted.</p>
+<p>What about updates to the <tt class="docutils literal"><span class="pre">username</span></tt>? It’s true that such updates will be
+expensive; happily, in this case, they’ll be rare. The read savings
+achieved in denormalizing will surely outweigh the costs of the
+occasional update. Alas, this is not hard and fast rule: ultimately,
+developers must evaluate their applications for the appropriate level
+of normalization.</p>
+</div>
+<div class="section" id="fields-as-arrays">
+<h2>Fields as arrays<a class="headerlink" href="#fields-as-arrays" title="Permalink to this headline">¶</a></h2>
+<p>With a relational database, even trivial relationships are blown out
+into multiple tables. Consider the votes a story receives. We need a
+way of recording which users have voted on which stories. The standard
+way of handling this would involve creating a table, ‘votes’, with each
+row referencing <tt class="docutils literal"><span class="pre">user_id</span></tt> and <tt class="docutils literal"><span class="pre">story_id</span></tt>.</p>
+<p>With a document database, it makes more sense to store those votes as
+an array of user ids, as we do here with the <tt class="docutils literal"><span class="pre">'voters'</span></tt> key.</p>
+<p>For fast lookups, we can create an index on this field. In the MongoDB shell:</p>
+<div class="highlight-sh"><div class="highlight"><pre>db.stories.ensureIndex<span class="o">(</span><span class="s1">'voters'</span><span class="o">)</span>;
+</pre></div>
+</div>
+<p>Or, using MongoMapper, we can specify the index in
+<tt class="file docutils literal"><span class="pre">config/initializers/database.rb</span></tt>:</p>
+<div class="highlight-ruby"><div class="highlight"><pre><span class="no">Story</span><span class="o">.</span><span class="n">ensure_index</span><span class="p">(</span><span class="ss">:voters</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>To find all the stories voted on by a given user:</p>
+<div class="highlight-ruby"><div class="highlight"><pre><span class="no">Story</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="ss">:conditions</span> <span class="o">=&gt;</span> <span class="p">{</span><span class="ss">:voters</span> <span class="o">=&gt;</span> <span class="vi">@user</span><span class="o">.</span><span class="n">id</span><span class="p">})</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="atomic-updates">
+<h2>Atomic Updates<a class="headerlink" href="#atomic-updates" title="Permalink to this headline">¶</a></h2>
+<p>Storing the <tt class="docutils literal"><span class="pre">voters</span></tt> array in the <tt class="docutils literal"><span class="pre">Story</span></tt> class also allows us to
+take advantage of atomic updates. What this means here is that, when a
+user votes on a story, we can</p>
+<ol class="arabic simple">
+<li>ensure that the voter hasn’t voted yet, and, if not,</li>
+<li>increment the number of votes and</li>
+<li>add the new voter to the array.</li>
+</ol>
+<p>MongoDB’s query and update features allows us to perform all three
+actions in a single operation. Here’s what that would look like from
+the shell:</p>
+<div class="highlight-sh"><div class="highlight"><pre>// Assume that story_id and user_id represent real story and user ids.
+db.stories.update<span class="o">({</span>_id: story_id, voters: <span class="o">{</span><span class="s1">'$ne'</span>: user_id<span class="o">}}</span>,
+  <span class="o">{</span><span class="s1">'$inc'</span>: <span class="o">{</span>votes: 1<span class="o">}</span>, <span class="s1">'$push'</span>: <span class="o">{</span>voters: user_id<span class="o">}})</span>;
+</pre></div>
+</div>
+<p>What this says is “get me a story with the given id whose <tt class="docutils literal"><span class="pre">voters</span></tt>
+array does not contain the given user id and, if you find such a story,
+perform two atomic updates: first, increment <tt class="docutils literal"><span class="pre">votes</span></tt> by 1 and then
+push the user id onto the <tt class="docutils literal"><span class="pre">voters</span></tt> array.”</p>
+<p>This operation highly efficient; it’s also reliable. The one caveat is
+that, because update operations are “fire and forget,” you won’t get a
+response from the server. But in most cases, this should be a non-issue.</p>
+<p>A MongoMapper implementation of the same update would look like this:</p>
+<div class="highlight-ruby"><div class="highlight"><pre><span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">upvote</span><span class="p">(</span><span class="n">story_id</span><span class="p">,</span> <span class="n">user_id</span><span class="p">)</span>
+  <span class="n">collection</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">'_id'</span> <span class="o">=&gt;</span> <span class="n">story_id</span><span class="p">,</span> <span class="s1">'voters'</span> <span class="o">=&gt;</span> <span class="p">{</span><span class="s1">'$ne'</span> <span class="o">=&gt;</span> <span class="n">user_id</span><span class="p">}},</span>
+    <span class="p">{</span><span class="s1">'$inc'</span> <span class="o">=&gt;</span> <span class="p">{</span><span class="s1">'votes'</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">},</span> <span class="s1">'$push'</span> <span class="o">=&gt;</span> <span class="p">{</span><span class="s1">'voters'</span> <span class="o">=&gt;</span> <span class="n">user_id</span><span class="p">}})</span>
+<span class="k">end</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="modeling-comments">
+<h2>Modeling Comments<a class="headerlink" href="#modeling-comments" title="Permalink to this headline">¶</a></h2>
+<p>In a relational database, comments are usually given their own table,
+related by foreign key to some parent table. This approach is
+occasionally necessary in MongoDB; however, it’s always best to try to
+embed first, as this will achieve greater query efficiency.</p>
+</div>
+<div class="section" id="linear-embedded-comments">
+<h2>Linear, Embedded Comments<a class="headerlink" href="#linear-embedded-comments" title="Permalink to this headline">¶</a></h2>
+<p>Linear, non-threaded comments should be embedded. Here are the most
+basic MongoMapper classes to implement such a structure:</p>
+<div class="highlight-ruby"><div class="highlight"><pre><span class="k">class</span> <span class="nc">Story</span>
+  <span class="kp">include</span> <span class="ss">MongoMapper</span><span class="p">:</span><span class="ss">:Document</span>
+  <span class="n">many</span> <span class="ss">:comments</span>
+<span class="k">end</span>
+</pre></div>
+</div>
+<div class="highlight-ruby"><div class="highlight"><pre> <span class="k">class</span> <span class="nc">Comment</span>
+  <span class="kp">include</span> <span class="ss">MongoMapper</span><span class="p">:</span><span class="ss">:EmbeddedDocument</span>
+  <span class="n">key</span> <span class="ss">:body</span><span class="p">,</span> <span class="nb">String</span>
+
+  <span class="n">belongs_to</span> <span class="ss">:story</span>
+<span class="k">end</span>
+</pre></div>
+</div>
+<p>If we were using the Ruby driver alone, we could save our structure like so:</p>
+<div class="highlight-ruby"><div class="highlight"><pre><span class="vi">@stories</span>  <span class="o">=</span> <span class="vi">@db</span><span class="o">.</span><span class="n">collection</span><span class="p">(</span><span class="s1">'stories'</span><span class="p">)</span>
+<span class="vi">@document</span> <span class="o">=</span> <span class="p">{</span><span class="ss">:title</span> <span class="o">=&gt;</span> <span class="s2">"MongoDB on Rails"</span><span class="p">,</span>
+             <span class="ss">:comments</span> <span class="o">=&gt;</span> <span class="o">[</span><span class="p">{</span><span class="ss">:body</span>     <span class="o">=&gt;</span> <span class="s2">"Revelatory! Loved it!"</span><span class="p">,</span>
+                            <span class="ss">:username</span> <span class="o">=&gt;</span> <span class="s2">"Matz"</span>
+                           <span class="p">}</span>
+                          <span class="o">]</span>
+            <span class="p">}</span>
+<span class="vi">@stories</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="vi">@document</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Essentially, comments are represented as an array of objects within a
+story document. This simple structure should be used for any
+one-to-many relationship where the many items are linear.</p>
+</div>
+<div class="section" id="nested-embedded-comments">
+<h2>Nested, Embedded Comments<a class="headerlink" href="#nested-embedded-comments" title="Permalink to this headline">¶</a></h2>
+<p>But what if we’re building threaded comments? An admittedly more
+complicated problem, two solutions will be presented here. The first is
+to represent the tree structure in the nesting of the comments
+themselves. This might be achieved using the Ruby driver as follows:</p>
+<div class="highlight-ruby"><div class="highlight"><pre><span class="vi">@stories</span>  <span class="o">=</span> <span class="vi">@db</span><span class="o">.</span><span class="n">collection</span><span class="p">(</span><span class="s1">'stories'</span><span class="p">)</span>
+<span class="vi">@document</span> <span class="o">=</span> <span class="p">{</span><span class="ss">:title</span> <span class="o">=&gt;</span> <span class="s2">"MongoDB on Rails"</span><span class="p">,</span>
+             <span class="ss">:comments</span> <span class="o">=&gt;</span> <span class="o">[</span><span class="p">{</span><span class="ss">:body</span>     <span class="o">=&gt;</span> <span class="s2">"Revelatory! Loved it!"</span><span class="p">,</span>
+                            <span class="ss">:username</span> <span class="o">=&gt;</span> <span class="s2">"Matz"</span><span class="p">,</span>
+                            <span class="ss">:comments</span> <span class="o">=&gt;</span> <span class="o">[</span><span class="p">{</span><span class="ss">:body</span>     <span class="o">=&gt;</span> <span class="s2">"Agreed."</span><span class="p">,</span>
+                                           <span class="ss">:username</span> <span class="o">=&gt;</span> <span class="s2">"rubydev29"</span>
+                                          <span class="p">}</span>
+                                         <span class="o">]</span>
+                           <span class="p">}</span>
+                          <span class="o">]</span>
+            <span class="p">}</span>
+<span class="vi">@stories</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="vi">@document</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Representing this structure using MongoMapper would be tricky,
+requiring a number of custom mods.</p>
+<p>But this structure has a number of benefits. The nesting is captured in
+the document itself (this is, in fact, <a class="reference external" href="http://www.businessinsider.com/how-we-use-mongodb-2009-11">how Business Insider represents
+comments</a>.
+And this schema is highly performant, since we can get the story, and
+all of its comments, in a single query, with no application-side
+processing for constructing the tree.</p>
+<p>One drawback is that alternative views of the comment tree require some
+significant reorganizing.</p>
+</div>
+<div class="section" id="comment-collections">
+<h2>Comment collections<a class="headerlink" href="#comment-collections" title="Permalink to this headline">¶</a></h2>
+<p>We can also represent comments as their own collection. Relative to the
+other options, this incurs a small performance penalty while granting
+us the greatest flexibility. The tree structure can be represented by
+storing the unique path for each leaf (see <a class="reference external" href="http://groups.google.com/group/mongodb-user/browse_thread/thread/3e10a4b409dd6cb4/ccc9de1fafafe37e?lnk=gst&amp;q=trees#ccc9de1fafafe37e">Mathias’s original post</a> on the
+idea). Here are the relevant sections of this model:</p>
+<div class="highlight-ruby"><div class="highlight"><pre><span class="k">class</span> <span class="nc">Comment</span>
+  <span class="kp">include</span> <span class="ss">MongoMapper</span><span class="p">:</span><span class="ss">:Document</span>
+
+  <span class="n">key</span> <span class="ss">:body</span><span class="p">,</span>       <span class="nb">String</span>
+  <span class="n">key</span> <span class="ss">:depth</span><span class="p">,</span>      <span class="nb">Integer</span><span class="p">,</span> <span class="ss">:default</span> <span class="o">=&gt;</span> <span class="mi">0</span>
+  <span class="n">key</span> <span class="ss">:path</span><span class="p">,</span>       <span class="nb">String</span><span class="p">,</span>  <span class="ss">:default</span> <span class="o">=&gt;</span> <span class="s2">""</span>
+
+  <span class="c1"># Note: we're intentionally storing parent_id as a string</span>
+  <span class="n">key</span> <span class="ss">:parent_id</span><span class="p">,</span>  <span class="nb">String</span>
+  <span class="n">key</span> <span class="ss">:story_id</span><span class="p">,</span>   <span class="no">ObjectId</span>
+  <span class="n">timestamps!</span>
+
+  <span class="c1"># Relationships.</span>
+  <span class="n">belongs_to</span> <span class="ss">:story</span>
+
+  <span class="c1"># Callbacks.</span>
+  <span class="n">after_create</span> <span class="ss">:set_path</span>
+
+  <span class="kp">private</span>
+
+  <span class="c1"># Store the comment's path.</span>
+  <span class="k">def</span> <span class="nf">set_path</span>
+    <span class="k">unless</span> <span class="nb">self</span><span class="o">.</span><span class="n">parent_id</span><span class="o">.</span><span class="n">blank?</span>
+      <span class="n">parent</span>        <span class="o">=</span> <span class="no">Comment</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="nb">self</span><span class="o">.</span><span class="n">parent_id</span><span class="p">)</span>
+      <span class="nb">self</span><span class="o">.</span><span class="n">story_id</span> <span class="o">=</span> <span class="n">parent</span><span class="o">.</span><span class="n">story_id</span>
+      <span class="nb">self</span><span class="o">.</span><span class="n">depth</span>    <span class="o">=</span> <span class="n">parent</span><span class="o">.</span><span class="n">depth</span> <span class="o">+</span> <span class="mi">1</span>
+      <span class="nb">self</span><span class="o">.</span><span class="n">path</span>     <span class="o">=</span> <span class="n">parent</span><span class="o">.</span><span class="n">path</span> <span class="o">+</span> <span class="s2">":"</span> <span class="o">+</span> <span class="n">parent</span><span class="o">.</span><span class="n">id</span>
+    <span class="k">end</span>
+    <span class="n">save</span>
+  <span class="k">end</span>
+</pre></div>
+</div>
+<p>The path ends up being a string of object ids. This makes it easier to
+display our comments nested, with each level in order of karma or
+votes. If we specify an index on <tt class="docutils literal"><span class="pre">story_id</span></tt>, <tt class="docutils literal"><span class="pre">path</span></tt>, and <tt class="docutils literal"><span class="pre">votes</span></tt>, the
+database can handle half the work of getting our comments in nested,
+sorted order.</p>
+<p>The rest of the work can be accomplished with a couple grouping
+methods, which can be found in <a class="reference external" href="http://github.com/banker/newsmonger/blob/master/app/models/comment.rb">the newsmonger source code</a>.</p>
+<p>It goes without saying that modeling comments in their own collection
+also facilitates various site-wide aggregations, including displaying
+the latest, grouping by user, etc.</p>
+</div>
+<div class="section" id="unfinished-business">
+<h2>Unfinished business<a class="headerlink" href="#unfinished-business" title="Permalink to this headline">¶</a></h2>
+<p>Document-oriented data modeling is still young. The fact is, many more
+applications will need to be built on the document model before we can
+say anything definitive about best practices. So the foregoing should
+be taken as suggestions, only. As you discover new patterns, we
+encourage you to document them, and feel free to let us know about what
+works (and what doesn’t).</p>
+<p>Developers working on object mappers and the like are encouraged to
+implement the best document patterns in their code, and to be wary of
+recreating relational database models in their apps.</p>
+</div>
+</div>
+
+                
+    <div id="btnv">
+    </div><!-- if anything changes in the rating block, update the doctools.js in themes/mongodb/static -->
+                
+                  <div class="footer">
+                    <div class="copyright">
+                      <p>Copyright © 2011-2015 <a class="smalltext" href="https://www.mongodb.com/">MongoDB, Inc</a>. Licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/">Creative Commons</a>. MongoDB, Mongo, and the leaf logo are registered trademarks of MongoDB, Inc.</p>
+                    </div>
+                  </div>
+              </div></div>
+            </div>
+        </div>
+    </div>
+    <div class="right-column">
+      <div class="wrapper">
+             <div class="toc">
+               <span class="toc-header">ON THIS PAGE</span>
+               <ul>
+<li><a class="reference internal" href="#">MongoDB Data Modeling and Rails</a><ul>
+<li><a class="reference internal" href="#modeling-stories">Modeling Stories</a></li>
+<li><a class="reference internal" href="#caching-to-avoid-n-1">Caching to Avoid N+1</a></li>
+<li><a class="reference internal" href="#a-note-on-denormalization">A Note on Denormalization</a></li>
+<li><a class="reference internal" href="#fields-as-arrays">Fields as arrays</a></li>
+<li><a class="reference internal" href="#atomic-updates">Atomic Updates</a></li>
+<li><a class="reference internal" href="#modeling-comments">Modeling Comments</a></li>
+<li><a class="reference internal" href="#linear-embedded-comments">Linear, Embedded Comments</a></li>
+<li><a class="reference internal" href="#nested-embedded-comments">Nested, Embedded Comments</a></li>
+<li><a class="reference internal" href="#comment-collections">Comment collections</a></li>
+<li><a class="reference internal" href="#unfinished-business">Unfinished business</a></li>
+</ul>
+</li>
+</ul>
+
+             </div>
+          <div class="report-link">
+            <a class="jira-link jirafeedback" href="https://jira.mongodb.org/secure/CreateIssueDetails%21init.jspa?pid=10380&amp;issuetype=4&amp;priority=4&amp;summary=Comment+on%3a+%22tutorial/model-data-for-ruby-on-rails%2Etxt%22" target="_blank" title="Report a problem with tutorial/model-data-for-ruby-on-rails.txt on Jira">Report a Problem</a>
+          </div>
+        
+           <div class="social">
+             <a class="twitter-icon" href="https://twitter.com/mongodbinc"><i class="fa fa-twitter-square"></i></a>
+             <a class="youtube-icon" href="https://www.youtube.com/user/MongoDB"><i class="fa fa-youtube-square"></i></a>
+             <a class="facebook-icon" href="https://www.facebook.com/mongodb"><i class="fa fa-facebook-square"></i></a>
+             <a class="gplus-icon" href="https://plus.google.com/u/1/101024085748034940765/posts?cfem=1"><i class="fa fa-google-plus-square"></i></a>
+           </div>
+        
+      </div>
+    </div>
+    <div class="clearfix"></div>
+  </div><script id="" type="text/javascript">adroll_adv_id="VC7KN272KJFYNCZSKCA7GR";adroll_pix_id="3L5E5MU7GBC3NMYB75WIRR";(function(){var b=window.onload;window.onload=function(){__adroll_loaded=!0;var a=document.createElement("script"),c="https:"==document.location.protocol?"https://s.adroll.com":"http://a.adroll.com";a.setAttribute("async","true");a.type="text/javascript";a.src=c+"/j/roundtrip.js";((document.getElementsByTagName("head")||[null])[0]||document.getElementsByTagName("script")[0].parentNode).appendChild(a);b&&b()}})();</script><script src="MongoDB%20Data%20Modeling%20and%20Rails_files/2182330138.js" id="" type="text/javascript"></script><script id="" type="text/javascript">var _elqQ=_elqQ||[];_elqQ.push(["elqSetSiteId","413370795"]);_elqQ.push(["elqTrackPageView"]);(function(){var a=document.createElement("script");a.type="text/javascript";a.async=!0;a.src="//img03.en25.com/i/elqCfg.min.js";var b=document.getElementsByTagName("script")[0];b.parentNode.insertBefore(a,b)})();</script><script id="" type="text/javascript">_bizo_data_partner_id="6855";</script>
+<script id="" type="text/javascript">(function(){var b=document.getElementsByTagName("script")[0],a=document.createElement("script");a.type="text/javascript";a.async=!0;a.src=("https:"===window.location.protocol?"https://sjs":"http://js")+".bizographics.com/insight.min.js";b.parentNode.insertBefore(a,b)})();</script>
+<noscript>
+  <img height="1" width="1" alt="" style="display:none;" src="//www.bizographics.com/collect/?pid=6855&amp;fmt=gif">
+</noscript><script src="MongoDB%20Data%20Modeling%20and%20Rails_files/pix.js" id="" type="text/javascript"></script>
+  <script type="text/javascript">
+document.write(unescape("%3Cscript src='" + document.location.protocol + "https://munchkin.marketo.net/munchkin.js' type='text/javascript'%3E%3C/script%3E"));
+</script><script src="MongoDB%20Data%20Modeling%20and%20Rails_files/munchkin.html" type="text/javascript"></script>
+<script>try { mktoMunchkin("017-HGS-593"); } catch(e) {}</script><script type="text/javascript">
+jQuery.ajax({
+         url: "https://jira.mongodb.org/s/en_UScn8g8x/782/6/1.2.5/_/download/batch/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector-embededjs/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector-embededjs.js?collectorId=298ba4e7",
+         type: "get",
+         cache: true,
+         dataType: "script"
+        });
+window.ATL_JQ_PAGE_PROPS =  {
+        "triggerFunction": function(showCollectorDialog) {
+                jQuery(".jirafeedback").click(function(e) {e.preventDefault();showCollectorDialog();});},
+                fieldValues: {component: 'mongodb-ecosystem', summary: 'Comment on: "mongodb-ecosystem/tutorial/model-data-for-ruby-on-rails.txt"'},
+                environment: {'repo': 'docs-ecosystem','source': 'tutorial/model-data-for-ruby-on-rails'}
+                };
+</script>
+
+  <script type="text/javascript">
+  var pagename = 'tutorial/model-data-for-ruby-on-rails';
+  if (pagename == 'index') {
+    pagename = '';
+  }
+  window.basePath = '';
+
+  window.fullDocsPath = function(base) {
+    var path = pagename;
+
+    // skip if pagename is undefined (index.html)
+    if (path) {
+      path = pagename + '/';
+    }
+    return '/' + base + '/' + path;
+  }
+  // Bootstrap array of links that should trigger a full page reload
+  window.docsExcludedNav = ['/drivers', '/drivers/c', '/drivers/cpp', '/drivers/csharp', '/drivers/go', '/drivers/erlang', '/drivers/node-js', '/drivers/perl', '/drivers/php', '/drivers/python', '/drivers/ruby', '/drivers/scala'];
+
+  $(document).ready(function(){
+    $(".version-selector").on('click', function(e) {
+      e.preventDefault();
+      var base = $(e.currentTarget).data('path');
+      window.location.href = fullDocsPath(base);
+    });
+
+    $("select.language-selector").on('change', function(e) {
+      var path = $(e.currentTarget).find('option:selected').data('path');
+      window.location.href = path;
+    });
+  });
+
+  </script>
+<script type="text/javascript" src="MongoDB%20Data%20Modeling%20and%20Rails_files/a"></script><table class="gstl_50 gssb_c" style="width: 19px; display: none; top: 39px; left: 970px; position: absolute;" cellpadding="0" cellspacing="0"><tbody><tr><td class="gssb_f"></td><td style="width: 100%;" class="gssb_e"></td></tr></tbody></table><div style="display: none;" id="atlwdg-blanket" class="atlwdg-blanket"></div><div class="atlwdg-popup atlwdg-box-shadow atlwdg-hidden" id="atlwdg-container"></div><img style="display: none;" alt="" src="MongoDB%20Data%20Modeling%20and%20Rails_files/l.gif" border="0" height="1" width="1"></body></html>

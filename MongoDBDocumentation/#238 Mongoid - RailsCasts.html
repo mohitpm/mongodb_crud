@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html><head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>#238 Mongoid - RailsCasts</title>
+    <meta name="description" content="Short Ruby on Rails screencasts containing tips, tricks and tutorials. Great for both novice and experienced web developers.">
+    <meta name="keywords" content="rails, ruby on rails, screencasts, railscast, railscasts, tips, tricks, tutorials, training, podcasts, programming">
+    <link rel="alternate" type="application/rss+xml" title="Episodes RSS" href="http://feeds.feedburner.com/railscasts">
+    <link href="%23238%20Mongoid%20-%20RailsCasts_files/application-f33052609391fcb2333fb8c560544e00.css" media="screen" rel="stylesheet" type="text/css">
+    <script src="%23238%20Mongoid%20-%20RailsCasts_files/ga.js" async="" type="text/javascript"></script><script src="%23238%20Mongoid%20-%20RailsCasts_files/widgets.js" id="twitter-wjs"></script><script src="%23238%20Mongoid%20-%20RailsCasts_files/3s7oes9q_002.js" type="text/javascript"></script>
+    <script src="%23238%20Mongoid%20-%20RailsCasts_files/application-fe460ed6c034ee8c95a2a78f52d7a5d9.js" type="text/javascript"></script>
+    <meta content="authenticity_token" name="csrf-param">
+<meta content="I0frP8fFM98t/vJQLlhl/Cd2uusX2SDZ3a76qWoquAU=" name="csrf-token">
+    
+  <script async="" src="%23238%20Mongoid%20-%20RailsCasts_files/sa.js" type="text/javascript"></script><script async="" src="%23238%20Mongoid%20-%20RailsCasts_files/3s7oes9q.js" type="text/javascript"></script></head>
+  <body>
+    <div id="top">
+      <div class="logo"><a href="http://railscasts.com/"><img alt="RailsCasts - Ruby on Rails Screencasts" src="%23238%20Mongoid%20-%20RailsCasts_files/railscasts_logo-7101a7cd0a48292a0c07276981855edb.png" height="56" width="423"></a></div>
+      <div class="user_nav">
+          <a href="http://railscasts.com/login?return_to=http%3A%2F%2Frailscasts.com%2Fepisodes%2F238-mongoid%3Fview%3Dasciicast">Sign in through GitHub</a>
+      </div>
+      <ul class="subscribe horizontal">
+        <li>
+          <a href="http://phobos.apple.com/WebObjects/MZStore.woa/wa/viewPodcast?id=218282043"><img alt="Itunes" src="%23238%20Mongoid%20-%20RailsCasts_files/itunes-ea9253b9b183d9788bef2cdfe326f38e.png" height="34" width="34"></a>
+          <span class="name">watch on iTunes</span>
+        </li>
+        <li>
+          <a href="http://twitter.com/railscasts"><img alt="Twitter" src="%23238%20Mongoid%20-%20RailsCasts_files/twitter-f0259ab802804e09139fb29f47678b2c.png" height="34" width="34"></a>
+          <span class="name">follow on Twitter</span>
+        </li>
+        <li>
+          <a href="http://www.facebook.com/pages/railscasts/197415140659"><img alt="Facebook" src="%23238%20Mongoid%20-%20RailsCasts_files/facebook-0ab869e74b54d9c58f33c1c75264d869.png" height="34" width="34"></a>
+          <span class="name">follow on Facebook</span>
+        </li>
+        <li>
+          <a href="http://feeds.feedburner.com/railscasts"><img alt="Rss" src="%23238%20Mongoid%20-%20RailsCasts_files/rss-04cb962054caa957a6fa3924c48594d8.png" height="34" width="34"></a>
+          <span class="name">subscribe to RSS feed</span>
+        </li>
+      </ul>
+    </div>
+
+    <div id="nav_bar">
+      <ul class="nav horizontal">
+        <li><a href="http://railscasts.com/">Browse Episodes</a></li>
+        <li><a href="http://railscasts.com/pro">RailsCasts Pro</a></li>
+        <li><a href="http://railscasts.com/notifications">Notifications</a></li>
+        <li><a href="http://railscasts.com/about">About</a></li>
+        <li><a href="http://railscasts.com/feedback">Feedback</a></li>
+      </ul>
+      <form accept-charset="UTF-8" action="http://railscasts.com/episodes" method="get"><div style="margin:0;padding:0;display:inline"><input name="utf8" value="✓" type="hidden"></div>
+        <input id="search" name="search" size="35" type="text">
+        <input value="Search Episodes" type="submit">
+</form>    </div>
+
+    <div id="announcement_banner">
+  <p>Please read for an updated status on RailsCasts:</p>
+
+  <p><a href="http://railscasts.com/announcements/12">Learn more</a> or <a href="http://railscasts.com/announcements/12/hide" data-remote="true">hide this</a></p>
+</div>
+
+
+
+    <div id="main">
+
+      
+  <div class="legacy" id="episode">
+    <script id="video_template" type="text/html"><video width="800" height="600" poster="/static/episodes/posters/loading800.png" controls="controls" preload="none" class="sv_force_fullscreen sv_force_flash"><source src="http://media.railscasts.com/assets/episodes/videos/238-mongoid.mp4" type="video/mp4"/><source src="http://media.railscasts.com/assets/episodes/videos/238-mongoid.m4v" type="video/mp4"/><source src="http://media.railscasts.com/assets/episodes/videos/238-mongoid.webm" type="video/webm"/><source src="http://media.railscasts.com/assets/episodes/videos/238-mongoid.ogv" type="video/ogg"/></video></script>
+    <div class="info">
+      <div class="screenshot"><a href="http://railscasts.com/episodes/238-mongoid?autoplay=true" class="play_video"><img alt="Mongoid" src="%23238%20Mongoid%20-%20RailsCasts_files/238-mongoid.png" height="125" width="200"></a></div>
+      <h1><span class="position">#238</span> Mongoid</h1>
+      <div class="details">Nov 01, 2010 | 11 minutes | <a href="http://railscasts.com/?tag_id=13">Plugins</a>, <a href="http://railscasts.com/?tag_id=16">Models</a></div>
+      <div class="description">Mongoid is a polished, high-level Ruby 
+gem for accessing MongoDB. Here I cover installation, adding fields, 
+validations, associations, and keys.</div>
+      <div class="watch"><a href="http://railscasts.com/episodes/238-mongoid?autoplay=true" class="play_video pretty_button">Click to Play Video ▶</a></div>
+      <div class="social"><iframe style="position: static; visibility: visible; width: 80px; height: 20px;" data-twttr-rendered="true" title="Twitter Tweet Button" class="twitter-share-button twitter-tweet-button twitter-share-button twitter-count-horizontal" src="%23238%20Mongoid%20-%20RailsCasts_files/tweet_button.html" allowtransparency="true" id="twitter-widget-0" frameborder="0" scrolling="no"></iframe><script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script></div>
+        <ul class="downloads horizontal">
+          <li>Download:</li>
+          <li><a href="http://media.railscasts.com/assets/episodes/sources/238-mongoid.zip">source code</a><span class="overlay">Project Files in Zip (109 KB)</span></li><li><a href="http://media.railscasts.com/assets/episodes/videos/238-mongoid.mp4">mp4</a><span class="overlay">Full Size H.264 Video (18.2 MB)</span></li><li><a href="http://media.railscasts.com/assets/episodes/videos/238-mongoid.m4v">m4v</a><span class="overlay">Smaller H.264 Video (12.1 MB)</span></li><li><a href="http://media.railscasts.com/assets/episodes/videos/238-mongoid.webm">webm</a><span class="overlay">Full Size VP8 Video (28.3 MB)</span></li><li><a href="http://media.railscasts.com/assets/episodes/videos/238-mongoid.ogv">ogv</a><span class="overlay">Full Size Theora Video (22.7 MB)</span></li>
+        </ul>
+      <div class="clear"></div>
+</div>    <ul class="nav horizontal"><li class="selected"><a href="http://railscasts.com/episodes/238-mongoid" class="tab">Show Notes</a></li><li><a href="http://railscasts.com/episodes/238-mongoid?view=asciicast" class="selected tab">ASCIIcast</a></li><li><a href="http://railscasts.com/episodes/238-mongoid?view=comments" class="tab">56 Comments</a></li><li><a href="http://railscasts.com/episodes/238-mongoid?view=similar" class="tab">Similar Episodes</a></li><li class="next"><a href="http://railscasts.com/episodes/239-activerecord-relation-walkthrough">Next Episode &gt;</a></li><li class="previous"><a href="http://railscasts.com/episodes/237-dynamic-attr-accessible">&lt; Previous Episode</a></li></ul>
+    <div class="nav_section">
+      <div class="inner">  <div class="asciicast">
+      <div class="languages">
+          <a href="http://railscasts.com/episodes/238-mongoid?language=es&amp;view=asciicast"><img alt="Es" src="%23238%20Mongoid%20-%20RailsCasts_files/es.png" height="32" width="32"></a>
+          <a href="http://railscasts.com/episodes/238-mongoid?language=pt&amp;view=asciicast"><img alt="Pt" src="%23238%20Mongoid%20-%20RailsCasts_files/pt.png" height="32" width="32"></a>
+      </div>
+    <p>A few months ago Episode 194 [<a href="http://railscasts.com/episodes/194-mongodb-and-mongomapper">watch</a>, <a href="http://railscasts.com/episodes/194-mongodb-and-mongomapper">read</a>] covered MongoDB and MongoMapper. MongoMapper is a great gem but there is now an alternative called <a href="http://mongoid.org/">Mongoid</a>
+ that is well worth considering if you’re thinking of using MongoDB as 
+the back-end for a Rails application. One of the things that makes 
+Mongoid stand out is its website which looks great and which has 
+detailed documentation. Mongoid is a project that other open-source 
+projects can learn from.</p>
+
+<h3>Installing MongoDB</h3>
+
+<p>If you haven’t yet installed MongoDB on your system the first thing you’ll need to do is go to the <a href="http://www.mongodb.org/downloads">MongoDB downloads page</a> and download the appropriate files. If you’re using Mac OS X then you can install MongoDB via <a href="http://mxcl.github.com/homebrew/">Homebrew</a> instead. Once installed, you can check that MongoDB is working by visiting <code><a href="http://localhost:28017/">http://localhost:28017</a></code>.  If you see a page like the one below then everything is running correctly.</p>
+
+<div class="imageWrapper">
+  <img src="%23238%20Mongoid%20-%20RailsCasts_files/E238I01.png" alt="The page we see when MongoDB is running correctly." height="561" width="805">
+</div>
+
+<h3>Creating a new Rails Application With Mongoid</h3>
+
+<p>Now that we have MongoDB installed we’ll create a new Rails 3 
+application that uses Mongoid. In the great tradition of example Rails 
+applications this will be a blogging app.</p>
+      <div class="code_block">
+        <div class="code_header">
+          terminal
+        </div>
+        <div class="CodeRay">
+  <div class="code"><pre>$ rails new blog</pre></div>
+</div>
+
+      </div>
+
+<p>The first thing we need to do is to add the Mongoid gem to the 
+Gemfile. At the time of writing version 2, which is the version that 
+supports Rails 3, is still in beta so we’ll need to specify the version 
+number.</p>
+
+      <div class="code_block">
+        <div class="code_header">
+          /Gemfile
+        </div>
+        <div class="CodeRay">
+  <div class="code"><pre>source <span class="s"><span class="dl">'</span><span class="k">http://rubygems.org</span><span class="dl">'</span></span>
+
+gem <span class="s"><span class="dl">'</span><span class="k">rails</span><span class="dl">'</span></span>, <span class="s"><span class="dl">'</span><span class="k">3.0.1</span><span class="dl">'</span></span>
+gem <span class="s"><span class="dl">'</span><span class="k">sqlite3-ruby</span><span class="dl">'</span></span>, <span class="sy">:require</span> =&gt; <span class="s"><span class="dl">'</span><span class="k">sqlite3</span><span class="dl">'</span></span>
+
+gem <span class="s"><span class="dl">'</span><span class="k">mongoid</span><span class="dl">'</span></span>, <span class="s"><span class="dl">'</span><span class="k">2.0.0.beta.19</span><span class="dl">'</span></span>
+gem <span class="s"><span class="dl">'</span><span class="k">bson_ext</span><span class="dl">'</span></span></pre></div>
+</div>
+
+      </div>
+
+<p>We also need to add the <a href="http://rubygems.org/gems/bson_ext"><code>bson_ext</code> gem</a>.
+ BSON is a binary version of JSON and this gem provides some C 
+extensions to accelerate Ruby’s BSON serialization. We can then install 
+the gems in the usual way</p>
+      <div class="code_block">
+        <div class="code_header">
+          terminal
+        </div>
+        <div class="CodeRay">
+  <div class="code"><pre>$ bundle</pre></div>
+</div>
+
+      </div>
+
+<p>Once the gems have installed we’ll need to run the Mongoid 
+configuration generator so that it can create the configuration YAML 
+file.</p>
+
+      <div class="code_block">
+        <div class="code_header">
+          terminal
+        </div>
+        <div class="CodeRay">
+  <div class="code"><pre>$ rails g mongoid:config</pre></div>
+</div>
+
+      </div>
+
+<p>The default file is shown below. We can leave it as it is while we’re developing our application.</p>
+
+      <div class="code_block">
+        <div class="code_header">
+          /config/mongoid.yml
+        </div>
+        <div class="CodeRay">
+  <div class="code"><pre><span class="ke">defaults</span>: <span class="v">&amp;defaults</span>
+  <span class="ke">host</span>: <span class="s">localhost</span>
+  <span class="c"># slaves:</span>
+  <span class="c">#   - host: slave1.local</span>
+  <span class="c">#     port: 27018</span>
+  <span class="c">#   - host: slave2.local</span>
+  <span class="c">#     port: 27019</span>
+
+<span class="ke">development</span>:
+  <span class="cv">&lt;&lt;</span>: <span class="gv">*defaults</span>
+  <span class="ke">database</span>: <span class="s">blog_development</span>
+
+<span class="ke">test</span>:
+  <span class="cv">&lt;&lt;</span>: <span class="gv">*defaults</span>
+  <span class="ke">database</span>: <span class="s">blog_test</span>
+
+<span class="c"># set these environment variables on your prod server</span>
+<span class="ke">production</span>:
+  <span class="ke">host</span>: <span class="s">&lt;%= ENV['MONGOID_HOST'] %&gt;</span>
+  <span class="ke">port</span>: <span class="s">&lt;%= ENV['MONGOID_PORT'] %&gt;</span>
+  <span class="ke">username</span>: <span class="s">&lt;%= ENV['MONGOID_USERNAME'] %&gt;</span>
+  <span class="ke">password</span>: <span class="s">&lt;%= ENV['MONGOID_PASSWORD'] %&gt;</span>
+  <span class="ke">database</span>: <span class="s">&lt;%= ENV['MONGOID_DATABASE'] %&gt;</span></pre></div>
+</div>
+
+      </div>
+
+<p>Everything is in place now for us to begin building our application. We’ll start by creating an <code>Article</code> model with <code>name</code> and <code>content</code> fields and use Rails’ scaffolding to create the associated controller and view code.</p>
+
+      <div class="code_block">
+        <div class="code_header">
+          terminal
+        </div>
+        <div class="CodeRay">
+  <div class="code"><pre>$ rails g scaffold article name:string content:text
+    invoke  mongoid
+    create    app/models/article.rb</pre></div>
+</div>
+
+      </div>
+
+<p>Mongoid provides generators for models so that Mongoid’s model 
+generator is invoked when a model is created and therefore ActiveRecord 
+isn’t used. If we open up the model file we’ll see that it’s a simple 
+class that includes <code>Mongoid::Document</code>.</p> 
+
+      <div class="code_block">
+        <div class="code_header">
+          /app/models/article.rb
+        </div>
+        <div class="CodeRay">
+  <div class="code"><pre><span class="r">class</span> <span class="cl">Article</span>
+  include <span class="co">Mongoid</span>::<span class="co">Document</span>
+  field <span class="sy">:name</span>, <span class="sy">:type</span> =&gt; <span class="co">String</span>
+  field <span class="sy">:content</span>, <span class="sy">:type</span> =&gt; <span class="co">String</span>
+<span class="r">end</span></pre></div>
+</div>
+
+      </div>
+
+<p>One difference this class has from an ActiveRecord model class is 
+that each field is explicitly defined, along with its type. The default 
+type is <code>String</code> so we can remove the types from this class if we want.</p>
+
+      <div class="code_block">
+        <div class="code_header">
+          /app/models/article.rb
+        </div>
+        <div class="CodeRay">
+  <div class="code"><pre><span class="r">class</span> <span class="cl">Article</span>
+  include <span class="co">Mongoid</span>::<span class="co">Document</span>
+  field <span class="sy">:name</span>
+  field <span class="sy">:content</span>
+<span class="r">end</span></pre></div>
+</div>
+
+      </div>
+
+<p>Our application is now ready to run. We don’t need to run any 
+database migrations as MongoDB is schema-less and we can pass any fields
+ we like into a document. If we visit the <code>/articles</code> page we’ll see the usual scaffold-generated page and we can create a new <code>Article</code> just like we would if we had an ActiveRecord back-end.</p>
+
+<div class="imageWrapper">
+  <img src="%23238%20Mongoid%20-%20RailsCasts_files/E238I02.png" alt="The articles page after a new article has been created." height="280" width="801">
+</div>
+
+<h3>Adding Fields</h3>
+
+<p>One of the great advantages of using a schema-less database is that 
+it’s simple to add new fields to a model. Let’s say that we forgot to 
+add a publishing date to <code>Article</code>. To add one we just need to modify the model class.</p>
+
+      <div class="code_block">
+        <div class="code_header">
+          /app/models/article.rb
+        </div>
+        <div class="CodeRay">
+  <div class="code"><pre><span class="r">class</span> <span class="cl">Article</span>
+  include <span class="co">Mongoid</span>::<span class="co">Document</span>
+  field <span class="sy">:name</span>
+  field <span class="sy">:content</span>
+  field <span class="sy">:published_on</span>, <span class="sy">:type</span> =&gt; <span class="co">Date</span>
+<span class="r">end</span></pre></div>
+</div>
+
+      </div>
+
+<p>To enable us to view and modify the publishing date field we’ll modify the view code and add the new field to the form.</p>
+
+      <div class="code_block">
+        <div class="code_header">
+          /app/views/articles/_form.html.erb
+        </div>
+        <div class="CodeRay">
+  <div class="code"><pre><span class="ta">&lt;div</span> <span class="an">class</span>=<span class="s"><span class="dl">"</span><span class="k">field</span><span class="dl">"</span></span><span class="ta">&gt;</span>
+    <span class="il"><span class="idl">&lt;%=</span> f.label <span class="sy">:name</span> <span class="idl">%&gt;</span></span><span class="ta">&lt;br</span> <span class="ta">/&gt;</span>
+    <span class="il"><span class="idl">&lt;%=</span> f.text_field <span class="sy">:name</span> <span class="idl">%&gt;</span></span>
+  <span class="ta">&lt;/div&gt;</span>
+  <span class="ta">&lt;div</span> <span class="an">class</span>=<span class="s"><span class="dl">"</span><span class="k">field</span><span class="dl">"</span></span><span class="ta">&gt;</span>
+    <span class="il"><span class="idl">&lt;%=</span> f.label <span class="sy">:published_on</span> <span class="idl">%&gt;</span></span><span class="ta">&lt;br</span> <span class="ta">/&gt;</span>
+    <span class="il"><span class="idl">&lt;%=</span> f.date_select <span class="sy">:published_on</span> <span class="idl">%&gt;</span></span>
+  <span class="ta">&lt;/div&gt;</span>
+  <span class="ta">&lt;div</span> <span class="an">class</span>=<span class="s"><span class="dl">"</span><span class="k">field</span><span class="dl">"</span></span><span class="ta">&gt;</span>
+    <span class="il"><span class="idl">&lt;%=</span> f.label <span class="sy">:content</span> <span class="idl">%&gt;</span></span><span class="ta">&lt;br</span> <span class="ta">/&gt;</span>
+    <span class="il"><span class="idl">&lt;%=</span> f.text_area <span class="sy">:content</span> <span class="idl">%&gt;</span></span>
+  <span class="ta">&lt;/div&gt;</span>
+  <span class="ta">&lt;div</span> <span class="an">class</span>=<span class="s"><span class="dl">"</span><span class="k">actions</span><span class="dl">"</span></span><span class="ta">&gt;</span>
+    <span class="il"><span class="idl">&lt;%=</span> f.submit <span class="idl">%&gt;</span></span>
+  <span class="ta">&lt;/div&gt;</span></pre></div>
+</div>
+
+      </div>
+
+<p>And also the view for the <code>show</code> action.</p>
+
+      <div class="code_block">
+        <div class="code_header">
+          /app/views/articles/show.html.erb
+        </div>
+        <div class="CodeRay">
+  <div class="code"><pre><span class="ta">&lt;p</span> <span class="an">id</span>=<span class="s"><span class="dl">"</span><span class="k">notice</span><span class="dl">"</span></span><span class="ta">&gt;</span><span class="il"><span class="idl">&lt;%=</span> notice <span class="idl">%&gt;</span></span><span class="ta">&lt;/p&gt;</span>
+
+<span class="ta">&lt;p&gt;</span>
+  <span class="ta">&lt;b&gt;</span>Name:<span class="ta">&lt;/b&gt;</span>
+  <span class="il"><span class="idl">&lt;%=</span> <span class="iv">@article</span>.name <span class="idl">%&gt;</span></span>
+<span class="ta">&lt;/p&gt;</span>
+
+<span class="ta">&lt;p&gt;</span>
+  <span class="ta">&lt;b&gt;</span>Content:<span class="ta">&lt;/b&gt;</span>
+  <span class="il"><span class="idl">&lt;%=</span> <span class="iv">@article</span>.content <span class="idl">%&gt;</span></span>
+<span class="ta">&lt;/p&gt;</span>
+
+<span class="ta">&lt;p&gt;</span>
+  <span class="ta">&lt;b&gt;</span>Published:<span class="ta">&lt;/b&gt;</span>
+  <span class="il"><span class="idl">&lt;%=</span> <span class="iv">@article</span>.published_on <span class="idl">%&gt;</span></span>
+<span class="ta">&lt;/p&gt;</span>
+
+
+<span class="il"><span class="idl">&lt;%=</span> link_to <span class="s"><span class="dl">'</span><span class="k">Edit</span><span class="dl">'</span></span>, edit_article_path(<span class="iv">@article</span>) <span class="idl">%&gt;</span></span> |
+<span class="il"><span class="idl">&lt;%=</span> link_to <span class="s"><span class="dl">'</span><span class="k">Back</span><span class="dl">'</span></span>, articles_path <span class="idl">%&gt;</span></span></pre></div>
+</div>
+
+      </div>
+
+<p>We can now edit the article we just created and add a published-on date to it.</p>
+
+<div class="imageWrapper">
+  <img src="%23238%20Mongoid%20-%20RailsCasts_files/E238I03.png" alt="Adding a published-on date to an article." height="299" width="815">
+</div>
+
+<h3>Validations</h3>
+
+<p>Mongoid used ActiveModel which means that a lot of the functionality 
+we use in ActiveRecord is available to us here as well, for example 
+validations, callbacks, dirty tracking, <code>attr_accessible</code> and so on. This makes it as easy to add validations to Mongoid models as ActiveRecord ones.</p>
+
+      <div class="code_block">
+        <div class="code_header">
+          /app/models/article.rb
+        </div>
+        <div class="CodeRay">
+  <div class="code"><pre><span class="r">class</span> <span class="cl">Article</span>
+  include <span class="co">Mongoid</span>::<span class="co">Document</span>
+  field <span class="sy">:name</span>
+  field <span class="sy">:content</span>
+  field <span class="sy">:published_on</span>, <span class="sy">:type</span> =&gt; <span class="co">Date</span>
+  validates_presence_of <span class="sy">:name</span>
+<span class="r">end</span></pre></div>
+</div>
+
+      </div>
+
+<p>If we try to create an article without a name now we’ll get the same 
+validation errors we’d see for an equivalent ActiveRecord model.</p>
+
+<div class="imageWrapper">
+  <img src="%23238%20Mongoid%20-%20RailsCasts_files/E238I04.png" alt="Validation errors work just as they do with ActiveRecord models." height="350" width="816">
+</div>
+
+<h3>Associations</h3>
+
+<p>We can’t have a blog without comments, so we’ll create a <code>Comment</code>
+ model along association so that each article can have many comments. 
+There are two ways to define associations with Mongoid. The first is 
+through a reference association. This behaves in a similar way to the 
+relations between tables in ActiveRecord and relational databases in 
+that there are two separate records that are related through an <code>id</code>
+ column. The other way is an embedded association which would mean in 
+this case that the comments are embedded inside the same document as the
+ article.</p>
+
+<p>When you’re deciding which of these approaches is to use you need to 
+ask yourself if you’ll ever need the associated records to stand on 
+their own or if you’ll always be accessing them through their parent 
+model. In this case we’ll only ever be getting comments through their 
+associated article so we’ll use an embedded association. We define the 
+relationship in the <code>Article</code> class by using the <code>embeds_many</code> method.</p>
+
+      <div class="code_block">
+        <div class="code_header">
+          /app/models/article.rb
+        </div>
+        <div class="CodeRay">
+  <div class="code"><pre><span class="r">class</span> <span class="cl">Article</span>
+  include <span class="co">Mongoid</span>::<span class="co">Document</span>
+  field <span class="sy">:name</span>
+  field <span class="sy">:content</span>
+  field <span class="sy">:published_on</span>, <span class="sy">:type</span> =&gt; <span class="co">Date</span>
+  validates_presence_of <span class="sy">:name</span>
+  embeds_many <span class="sy">:comments</span>
+<span class="r">end</span></pre></div>
+</div>
+
+      </div>
+
+<p>Next we’ll generate the <code>Comment</code> model.</p>
+
+      <div class="code_block">
+        <div class="code_header">
+          terminal
+        </div>
+        <div class="CodeRay">
+  <div class="code"><pre>$ rails g model comment name:string content:text</pre></div>
+</div>
+
+      </div>
+
+<p>In this new <code>Comment</code> class we can now define its relationship with <code>Article</code>.</p>
+
+      <div class="code_block">
+        <div class="code_header">
+          /app/models/comment.rb
+        </div>
+        <div class="CodeRay">
+  <div class="code"><pre><span class="r">class</span> <span class="cl">Comment</span>
+  include <span class="co">Mongoid</span>::<span class="co">Document</span>
+  field <span class="sy">:name</span>
+  field <span class="sy">:content</span>
+  embedded_in <span class="sy">:article</span>, <span class="sy">:inverse_of</span> =&gt; <span class="sy">:comments</span>
+<span class="r">end</span></pre></div>
+</div>
+
+      </div>
+
+<p>We use <code>embedded_in</code> to define a comment’s relationship to an article. The <code>inverse_of</code> option is required in order to tell Mongoid what the comment should be embedded through.</p>
+
+<p>In order to create comments for each article and to view them we’ll need to create a <code>CommentsController</code>
+ and some views, but before we do so we’ll need to alter the routes 
+file. For embedded associations like this we generally want to use 
+nested routes as the child object is always accessed through its parent 
+and so we’ll nest the comments resource under articles.</p>
+
+      <div class="code_block">
+        <div class="code_header">
+          /config/routes.rb
+        </div>
+        <div class="CodeRay">
+  <div class="code"><pre><span class="co">Blog</span>::<span class="co">Application</span>.routes.draw <span class="r">do</span>
+  resources <span class="sy">:articles</span> <span class="r">do</span>
+    resources <span class="sy">:comments</span>
+  <span class="r">end</span>
+<span class="r">end</span></pre></div>
+</div>
+
+      </div>
+
+<p>Next we’ll generate the controller.</p>
+
+      <div class="code_block">
+        <div class="code_header">
+          terminal
+        </div>
+        <div class="CodeRay">
+  <div class="code"><pre>$ rails g controller comments</pre></div>
+</div>
+
+      </div>
+
+<p>In the controller we’ll write a <code>create</code> action so that we can create new comments for an article. This action will find an article based on the <code>article_id</code> parameter, create a comment for that article and then redirect back to the article’s page.</p>
+
+      <div class="code_block">
+        <div class="code_header">
+          /app/controllers/comments_controller.rb
+        </div>
+        <div class="CodeRay">
+  <div class="code"><pre><span class="co">CommentsController</span> &lt; <span class="co">ApplicationController</span>
+  <span class="r">def</span> <span class="fu">create</span>
+    <span class="iv">@article</span> = <span class="co">Article</span>.find(params[<span class="sy">:article_id</span>])
+    <span class="iv">@comment</span> = <span class="iv">@article</span>.comments.create!(params[<span class="sy">:comment</span>])
+    redirect_to <span class="iv">@article</span>, <span class="sy">:notice</span> =&gt; <span class="s"><span class="dl">"</span><span class="k">Comment created!</span><span class="dl">"</span></span>  
+  <span class="r">end</span>
+<span class="r">end</span></pre></div>
+</div>
+
+      </div>
+
+<p>Finally we’ll add some code to the articles’ show view that will show
+ the comments for an article and allow comments to be added.</p>
+
+      <div class="code_block">
+        <div class="code_header">
+          /app/views/articles/show.html.erb
+        </div>
+        <div class="CodeRay">
+  <div class="code"><pre><span class="il"><span class="idl">&lt;%</span> <span class="r">if</span> <span class="iv">@article</span>.comments.size &gt; <span class="i">0</span> <span class="idl">%&gt;</span></span>
+  <span class="ta">&lt;h2&gt;</span>Comments<span class="ta">&lt;/h2&gt;</span>
+  <span class="il"><span class="idl">&lt;%</span> <span class="r">for</span> comment <span class="r">in</span> <span class="iv">@article</span>.comments <span class="idl">%&gt;</span></span>
+    <span class="ta">&lt;h3&gt;</span><span class="il"><span class="idl">&lt;%=</span> comment.name <span class="idl">%&gt;</span></span><span class="ta">&lt;/h3&gt;</span>
+    <span class="ta">&lt;p&gt;</span><span class="il"><span class="idl">&lt;%=</span> comment.content <span class="idl">%&gt;</span></span><span class="ta">&lt;/p&gt;</span>
+  <span class="il"><span class="idl">&lt;%</span> <span class="r">end</span> <span class="idl">%&gt;</span></span>
+<span class="il"><span class="idl">&lt;%</span> <span class="r">end</span> <span class="idl">%&gt;</span></span>
+
+<span class="ta">&lt;h2&gt;</span>New Comment<span class="ta">&lt;/h2&gt;</span>
+
+<span class="il"><span class="idl">&lt;%=</span> form_for [<span class="iv">@article</span>, <span class="co">Comment</span>.new] <span class="r">do</span> |f| <span class="idl">%&gt;</span></span>
+  <span class="ta">&lt;p&gt;</span><span class="il"><span class="idl">&lt;%=</span> f.label <span class="sy">:name</span> <span class="idl">%&gt;</span></span> <span class="il"><span class="idl">&lt;%=</span> f.text_field <span class="sy">:name</span> <span class="idl">%&gt;</span></span><span class="ta">&lt;/p&gt;</span>
+  <span class="ta">&lt;p&gt;</span><span class="il"><span class="idl">&lt;%=</span> f.text_area <span class="sy">:content</span>, <span class="sy">:rows</span> =&gt; <span class="i">10</span> <span class="idl">%&gt;</span></span><span class="ta">&lt;/p&gt;</span>
+  <span class="ta">&lt;p&gt;</span><span class="il"><span class="idl">&lt;%=</span> f.submit <span class="idl">%&gt;</span></span><span class="ta">&lt;/p&gt;</span>
+<span class="il"><span class="idl">&lt;%</span> <span class="r">end</span> <span class="idl">%&gt;</span></span></pre></div>
+</div>
+
+      </div>
+
+<p>When we visit an article’s page now we’ll be able to create a new 
+comment and after we have submitted it it will be shown below the 
+article.</p>
+
+<div class="imageWrapper">
+  <img src="%23238%20Mongoid%20-%20RailsCasts_files/E238I05.png" alt="Adding a comment to an article." height="621" width="800">
+</div>
+
+<p>If we take a look at the development log we can see the MongoDB 
+queries. When we created a comment just now, this query was made.</p>
+
+      <div class="code_block">
+        <div class="code_header">
+          terminal
+        </div>
+        <div class="CodeRay">
+  <div class="code"><pre>MONGODB blog_development['articles'].update({"_id"=&gt;BSON::ObjectId('4cd01fa4a74209eacc000003')}, 
+{"$push"=&gt;{"comments"=&gt;{"_id"=&gt;BSON::ObjectId('4cd04c74a74209ecb4000002'), 
+  "name"=&gt;"Eifion", "content"=&gt;"I agree."}}})</pre></div>
+</div>
+
+      </div>
+
+<p>The query updates an article model and adds a comment attribute to it
+ so the comments are not stored separately. This means that if we open 
+up the Rails console and count all the comments we’ll get an unexpected 
+result.</p>
+
+      <div class="code_block">
+        <div class="code_header">
+          terminal
+        </div>
+        <div class="CodeRay">
+  <div class="code"><pre>&gt; Comment.count
+ =&gt; 0</pre></div>
+</div>
+
+      </div>
+
+<p>The comments we have are embedded in articles and are not available 
+at a global document level. To access them we always have to go through 
+their associated article.</p>
+
+      <div class="code_block">
+        <div class="code_header">
+          terminal
+        </div>
+        <div class="CodeRay">
+  <div class="code"><pre>&gt;   Article.first.comments.count
+ =&gt; 1</pre></div>
+</div>
+
+      </div>
+
+<p>To get at the attributes for a comment we’ll always need to get that 
+comment through the association as in this application comments are 
+embedded records.</p>
+
+<h3>Reference Type Associations</h3>
+
+<p>If we want an associated record that is also available as a separate 
+document then we'll need to create a reference type association. We’ll 
+demonstrate this by modifying our application so that we can associate 
+each article with an author. First we’ll generate a scaffold for a new <code>Author</code> model.</p>
+
+      <div class="code_block">
+        <div class="code_header">
+          terminal
+        </div>
+        <div class="CodeRay">
+  <div class="code"><pre>$ rails g scaffold author name:string</pre></div>
+</div>
+
+      </div>
+
+<p>Before we demonstrate associations we’ll take a quick look at a cool feature of Mongoid. If we add a <code>key</code> method to Mongoid model class that key will be used as the <code>id</code> to identify that model. We’ll make the name attribute the key for <code>Author</code>.</p>
+
+      <div class="code_block">
+        <div class="code_header">
+          /app/models/author.rb
+        </div>
+        <div class="CodeRay">
+  <div class="code"><pre><span class="r">class</span> <span class="cl">Author</span>
+  include <span class="co">Mongoid</span>::<span class="co">Document</span>
+  field <span class="sy">:name</span>
+  key <span class="sy">:name</span>
+<span class="r">end</span></pre></div>
+</div>
+
+      </div>
+
+<p>If we create an author now, when we’re redirected to that author’s page we’ll see the <code>id</code> in the URL.</p>
+
+<div class="imageWrapper">
+  <img src="%23238%20Mongoid%20-%20RailsCasts_files/E238I06.png" alt="The page for an author showing the name as an id." height="280" width="800">
+</div>
+
+<p>If we’re going to use this feature then we’ll need to ensure the 
+field we choose to use as a key isn’t editable so that the document has a
+ permanent string as an <code>id</code> that won’t change throughout the life of the document.</p>
+
+<p>Back to associations now. In the <code>Author</code> class we use <code>references_many</code> to define the relationship with articles.</p>
+
+      <div class="code_block">
+        <div class="code_header">
+          /app/models/author.rb
+        </div>
+        <div class="CodeRay">
+  <div class="code"><pre><span class="r">class</span> <span class="cl">Author</span>
+  include <span class="co">Mongoid</span>::<span class="co">Document</span>
+  field <span class="sy">:name</span>
+  key <span class="sy">:name</span>
+  references_many <span class="sy">:articles</span>
+<span class="r">end</span></pre></div>
+</div>
+
+      </div>
+
+<p>Then in the <code>Article</code> model we use <code>referenced_in</code>.</p>
+
+      <div class="code_block">
+        <div class="code_header">
+          /app/models/article.rb
+        </div>
+        <div class="CodeRay">
+  <div class="code"><pre><span class="r">class</span> <span class="cl">Article</span>
+  include <span class="co">Mongoid</span>::<span class="co">Document</span>
+  field <span class="sy">:name</span>
+  field <span class="sy">:content</span>
+  field <span class="sy">:published_on</span>, <span class="sy">:type</span> =&gt; <span class="co">Date</span>
+  validates_presence_of <span class="sy">:name</span>
+  embeds_many <span class="sy">:comments</span>
+  referenced_in <span class="sy">:author</span>
+<span class="r">end</span></pre></div>
+</div>
+
+      </div>
+
+<p>We can now use that association like we would in ActiveRecord. In our form for editing an article we can add a <code>collection_select</code> so that we can select an author when we create or update an article.</p>
+
+      <div class="code_block">
+        <div class="code_header">
+          /app/views/articles/_form.html.erb
+        </div>
+        <div class="CodeRay">
+  <div class="code"><pre><span class="ta">&lt;div</span> <span class="an">class</span>=<span class="s"><span class="dl">"</span><span class="k">field</span><span class="dl">"</span></span><span class="ta">&gt;</span>
+  <span class="il"><span class="idl">&lt;%=</span> f.label <span class="sy">:author_id</span> <span class="idl">%&gt;</span></span><span class="ta">&lt;br</span> <span class="ta">/&gt;</span>
+  <span class="il"><span class="idl">&lt;%=</span> f.collection_select <span class="sy">:author_id</span>, <span class="co">Author</span>.all, <span class="sy">:id</span>, <span class="sy">:name</span> <span class="idl">%&gt;</span></span>
+<span class="ta">&lt;/div&gt;</span></pre></div>
+</div>
+
+      </div>
+
+<p>If we modify our article now and select an author we’ll can see that author’s <code>id</code> embedded in the article when we examine it in the console.</p>
+
+      <div class="code_block">
+        <div class="code_header">
+          terminal
+        </div>
+        <div class="CodeRay">
+  <div class="code"><pre>&gt; Article.first
+ =&gt; #&lt;Article _id: 4cd01fa4a74209eacc000003, name: "Mongoid", content: "it's awesome!", published_on: 2010-11-02 00:00:00 UTC, author_id: "eifion-bedford"&gt;</pre></div>
+</div>
+
+      </div>
+
+<p>Unlike the comments association, however, we can access the author separately.</p>
+
+      <div class="code_block">
+        <div class="code_header">
+          terminal
+        </div>
+        <div class="CodeRay">
+  <div class="code"><pre>&gt; Author.first
+ =&gt; #&lt;Author _id: eifion-bedford, name: "Eifion Bedford"&gt;</pre></div>
+</div>
+
+      </div>
+
+<p>That’s it for this episode on Mongoid. There’s much that we haven’t 
+covered here but the documentation is fairly comprehensive and will give
+ you nearly all that you need to know to use Mongoid and MongoDB in your
+ Rails application.</p>
+  </div>
+</div>
+      <div class="progress" style="display: none"><img alt="loading" src="%23238%20Mongoid%20-%20RailsCasts_files/progress_large-b0fa49d32dce1cea0e4f9c082c1fa5f5.gif"></div>
+    </div>
+</div>
+    </div>
+    <div id="footer">
+      <div class="inner">
+        ©2015 RailsCasts - <a href="http://railscasts.com/privacy">Privacy Policy</a> - Hosted by <a href="https://www.digitalocean.com/?utm_source=railscasts.com">Digital Ocean</a>
+      </div>
+    </div>
+
+      <!-- Google Analytics -->
+      <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-7696481-1']);
+        _gaq.push(['_trackPageview']);
+
+        (function() {
+          var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+          ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+          var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+      </script>
+  
+
+</body></html>
